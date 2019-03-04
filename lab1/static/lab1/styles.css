@@ -7,10 +7,13 @@
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 .non-transition {
-    transition-property: none;
+    transition-property: none !important;
+}
+.non-animation {
+    animation: none !important;
 }
 
 body {
@@ -88,7 +91,7 @@ body.is-drag-over {
     margin: 0 6.5pt;
 }
 .welcome-word {
-    transition-duration: 2s;
+    transition-duration: 1.5s;
     transition-timing-function: ease-in;
     user-select: none;
 }
@@ -140,11 +143,11 @@ body.is-drag-over {
     /*align-content: center;*/
     align-content: flex-start;
 
-    width: 1000vw;
+    width: 100vw;
 
     position: absolute;
 
-    top: 85vh;
+    /*top: 85vh; */
     left: 10vw;
 
     /*transition-duration: 1s;*/
@@ -153,6 +156,8 @@ body.is-drag-over {
 }
 
     .token {
+        z-index: 2;
+
         font-family: monospace;
         font-size: 32pt;
 
@@ -192,3 +197,70 @@ body.is-drag-over {
 
         .identifier {
         }
+
+.text-cursor {
+    z-index: 3;
+    position: absolute;
+    display: none;
+
+    top: 0pt;
+    left: 0pt;
+
+    width: 2pt;
+    height: 32pt;
+
+    background: black;
+
+    /*border-radius: 5pt;*/
+
+    animation: text-cursor-flecker 0.9s ease-in-out 0s infinite forwards reverse;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+}
+
+.selection-wrapper {
+    z-index: 1;
+    position: absolute;
+
+    top: -10vh;
+    left: 10vw;
+
+    height: 32pt;
+    width: 0;
+
+    /*transition-duration: 0.1s;*/
+    /*transition-timing-function: ease-in-out;*/
+    /*transition-property: width;*/
+}
+
+    .selection {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+        right: 100%;
+        bottom: 0;
+
+        background: #bad6fb;
+
+        transition-duration: 0.1s;
+        transition-timing-function: ease-in-out;
+        transition-property: left, right;
+    }
+
+.node {
+    position: absolute;
+    overflow: hidden;
+
+    height: 32pt;
+    white-space: nowrap;
+}
+
+@keyframes text-cursor-flecker {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
