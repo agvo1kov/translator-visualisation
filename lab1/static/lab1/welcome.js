@@ -4,11 +4,13 @@ let $wrapper = document.getElementById('wrapper'),
     $uploadForm = document.getElementById('upload-form'),
     $fileInput = document.getElementById('file-input'),
     $cornerstone = document.getElementById('cornerstone'),
-    $programWrapper = document.getElementById('program-wrapper');
+    $programWrapper = document.getElementById('program-wrapper'),
+    $tokensWrapper = document.getElementById('tokens-wrapper');
 
 
 class Code {
 
+    // action methonds
     constructor(chain, tables) {
         this.chain = chain;
         this.tables = tables;
@@ -18,10 +20,11 @@ class Code {
         };
 
         this.lineOffset = 7;
+        this.topOffset = 0;
 
         this.tokens = [[]];
         this.cornerstone = {
-            'width': $cornerstone.offsetWidth,
+            'width': $cornerstone.offsetWidth - 0.2,
             'height': $cornerstone.offsetHeight
         };
 
@@ -38,6 +41,7 @@ class Code {
         this.$selectionWrapper = document.createElement('div');
         this.$selectionWrapper.className = 'selection-wrapper';
         this.$selectionWrapper.style.height = this.cornerstone.height;
+        this.$selectionWrapper.style.transitionDuration = '0s';
 
         this.$selection = document.createElement('div');
         this.$selection.className = 'selection';
@@ -49,15 +53,17 @@ class Code {
         this.$breakLine.className = 'break-line';
 
         this.$indent = document.createElement('div');
-        this.$indent.classList.add('token', 'indent');
+        this.$indent.classList.add('token');
         this.$indent.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;';
 
         this.$space = document.createElement('div');
         this.$space.classList.add('token', 'space');
         this.$space.innerHTML = '&nbsp;';
+    }
 
+    renderTokens() {
         if (this.chain && this.tables) {
-            $programWrapper.innerHTML = '';
+            $tokensWrapper.innerHTML = '';
 
             let tokenNumberInLine = 0;
             let varFlag = false,
@@ -87,8 +93,12 @@ class Code {
                 }
 
                 if (this.chain[i][2] === 'else') {
-                    $programWrapper.appendChild(this.$breakLine.cloneNode());
+                    const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild($newBreakLine);
+                    this.tokens[this.tokens.length-1].push($newBreakLine);
+
                     this.tokens.push([]);
+
                     numberOfLine++;
                     tokenNumberInLine = 0;
                     beginFlag = false;
@@ -109,14 +119,15 @@ class Code {
 
                 if (tokenNumberInLine === 0) {
                     for (let j = 0; j < indent; j++) {
-                        $programWrapper.appendChild(this.$indent.cloneNode(true));
-                        // this.tokens.push(this.$indent.cloneNode());
+                        const $newIndent = this.$indent.cloneNode(true);
+                        $tokensWrapper.appendChild($newIndent);
+                        this.tokens[this.tokens.length-1].push($newIndent);
                     }
                 }
 
                 console.log(this.chain[i][2], this.chain[i][3], indent, numberOfLine);
 
-                $programWrapper.appendChild($newToken);
+                $tokensWrapper.appendChild($newToken);
                 this.tokens[this.tokens.length-1].push($newToken);
 
                 let transitionX = getRndInteger(20, 50),
@@ -148,9 +159,10 @@ class Code {
                             && (this.chain[i + 1][2] !== ',') && (this.chain[i + 1][2] !== ']')
                             && (this.chain[i + 1][2] !== ')') && (this.chain[i + 1][2] !== '+')
                             && (this.chain[i + 1][2] !== '-') && (this.chain[i + 1][2] !== '*')
-                            && (this.chain[i + 1][2] !== '/')) {
-                            $programWrapper.appendChild(this.$space.cloneNode(true));
-                            // this.tokens.push(this.$space.cloneNode());
+                            && (this.chain[i + 1][2] !== '/') && (this.chain[i + 1][2] !== 'else')) {
+                            const $newSpace = this.$space.cloneNode(true);
+                            $tokensWrapper.appendChild($newSpace);
+                            this.tokens[this.tokens.length-1].push($newSpace);
                         }
                     }
                 }
@@ -158,8 +170,11 @@ class Code {
                 tokenNumberInLine++;
 
                 if (this.chain[i][2] === ';') {
-                    $programWrapper.appendChild(this.$breakLine.cloneNode());
+                    const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild($newBreakLine);
+                    this.tokens[this.tokens.length-1].push($newBreakLine);
                     this.tokens.push([]);
+
                     numberOfLine++;
                     tokenNumberInLine = 0;
 
@@ -178,8 +193,11 @@ class Code {
                 if ((this.chain[i][2] === 'var') || (this.chain[i][2] === 'begin')
                     || (this.chain[i][2] === 'then') || (this.chain[i][2] === 'else')
                     || (this.chain[i][2] === 'const')) {
-                    $programWrapper.appendChild(this.$breakLine.cloneNode());
+                    const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild($newBreakLine);
+                    this.tokens[this.tokens.length-1].push($newBreakLine);
                     this.tokens.push([]);
+
                     numberOfLine++;
                     tokenNumberInLine = 0;
                     indent++;
@@ -210,18 +228,18 @@ class Code {
                 }
 
                 if ((this.chain[i][2] === ':') && (!varFlag)) {
-                    $programWrapper.appendChild(this.$breakLine.cloneNode());
+                    const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild($newBreakLine);
+                    this.tokens[this.tokens.length-1].push($newBreakLine);
                     this.tokens.push([]);
+
                     numberOfLine++;
                     tokenNumberInLine = 0;
                 }
             }
-
-            let that = this;
-            setTimeout(function () {
-                that.programOnset(that.tokens.length-1);
-            }, 50);
         }
+
+        console.log(this.tokens);
 
         $programWrapper.style.top = (100 - (1.6 * this.cornerstone.height / window.innerHeight) * 100) + 'vh';
         $programWrapper.appendChild(this.$cursor);
@@ -229,136 +247,6 @@ class Code {
 
         $programWrapper.appendChild(this.$selectionWrapper);
         reflow(this.$selectionWrapper);
-    }
-
-    hideSelection() {
-        this.$selection.style.opacity = '0';
-        this.$selection.style.right = '100%';
-        this.$selection.style.left = '0';
-    }
-
-    // showSelection() {
-    //     this.$selection.style.opacity = '1';
-    // }
-
-    setSelection(x, y, width, leftToRight, callback) {
-        let duration = 100;
-        this.$selection.style.transitionDuration = duration / 1000 + 's';
-
-        this.$selectionWrapper.style.left = x * this.cornerstone.width + 'px';
-        this.$selectionWrapper.style.top = y * this.cornerstone.height + 'px';
-        this.$selectionWrapper.style.width = width * this.cornerstone.width + 'px';
-
-        if (leftToRight) {
-            this.$selectionWrapper.style.transform = 'rotate(0deg)';
-            this.setCursor(x + width, y);
-        } else {
-            this.$selectionWrapper.style.transform = 'rotate(180deg)';
-            this.setCursor(x, y);
-        }
-
-        this.$selection.style.right = '100%';
-        this.$selection.style.left = '0';
-
-        this.$selection.style.right = '0';
-
-        this.selection.x = x;
-        this.selection.y = y;
-        this.selection.width = width;
-
-        if (typeof callback == "function") {
-            setTimeout(function() {
-                callback()
-            }, duration);
-        }
-    }
-
-    setCursor(x, y) {
-        this.cursorPos = {
-            x: x,
-            y: y
-        };
-
-        this.$cursor.style.left = this.cursorPos.x * this.cornerstone.width + 'px';
-        this.$cursor.style.top = this.cursorPos.y * this.cornerstone.height + 'px';
-        this.$cursor.style.display = 'block';
-
-        console.log('cursor', this.$cursor.style.left, this.$cursor.style.top);
-    }
-
-    moveCursor(x, y, callback) {
-        if ((x !== this.cursorPos.x) || (y !== this.cursorPos.y)) {
-            this.$cursor.classList.add('non-animation');
-            // console.log(this.cursorPos.x, '!=', x);
-            // console.log(this.cursorPos.y, '!=', y);
-            if (y !== this.cursorPos.y) {
-                if (y > this.cursorPos.y) {
-                    this.cursorPos.y++;
-                } else {
-                    this.cursorPos.y--;
-                }
-            } else if (x !== this.cursorPos.x) {
-                if (x > this.cursorPos.x) {
-                    this.cursorPos.x++;
-                } else {
-                    this.cursorPos.x--;
-                }
-            }
-
-            this.$cursor.style.left = this.cursorPos.x * this.cornerstone.width + 'px';
-            this.$cursor.style.top = this.cursorPos.y * this.cornerstone.height + 'px';
-            this.$cursor.style.display = 'block';
-
-            let that = this;
-            setTimeout(function() {
-                that.moveCursor(x, y, callback);
-            }, getRndInteger(80, 250));
-        } else {
-            this.$cursor.classList.remove('non-animation');
-            if (typeof callback == 'function') {
-                callback();
-            }
-        }
-    }
-
-    appendNode(text, x, y, callback) {
-        let that = this;
-
-        let $newNode = document.createElement('div');
-        $newNode.classList.add('token', 'node');
-        $newNode.innerText = text;
-        $newNode.style.top = y * this.cornerstone.height + 'px';
-        $newNode.style.left = x * this.cornerstone.width + 'px';
-        $newNode.style.width = '0';
-        $newNode.style.transitionDuration = '0.1s';
-
-        $programWrapper.appendChild($newNode);
-        reflow($newNode);
-
-        this.setCursor(x, y);
-
-        typing(1700);
-
-        function typing(duration) {
-            setTimeout(function() {
-                that.$cursor.classList.add('non-animation');
-                if (that.cursorPos.x < x + text.length) {
-                    that.setCursor(that.cursorPos.x + 1, y);
-                    $newNode.style.width = (that.cursorPos.x - x) * that.cornerstone.width;
-
-                    let delay = getRndInteger(200, 500);
-                    if (text[that.cursorPos.x - x - 1] === text[that.cursorPos.x - x]) {
-                        delay = getRndInteger(100, 200)
-                    }
-                    typing(delay);
-                } else {
-                    that.$cursor.classList.remove('non-animation');
-                    callback();
-                }
-            }, duration);
-        }
-
-        return $newNode;
     }
 
     programOnset(lineIndex) {
@@ -388,34 +276,318 @@ class Code {
             console.log(this.tokens);
             setTimeout(function() {
                 that.setCursor(0, -7);
-                let $321Node = that.appendNode('3.. 2.. 1..', 0, -7, function() {
-                    that.setSelection(0, -7, '3.. 2.. 1..'.length, false, function() {
-                        setTimeout(function() {
-                            that.hideSelection();
-                            $321Node.style.display = 'none';
-                            that.moveCursor(0, 0);
-                        }, 300)
+                setTimeout(function() {
+                    let $321Node = that.appendNode('3.. 2.. 1..', 0, -7, function() {
+                        that.setSelection(0, -7, '3.. 2.. 1..'.length, false, function() {
+                            setTimeout(function() {
+                                that.hideSelection();
+                                $321Node.style.display = 'none';
+                                that.moveCursor(0, 0, function() {
+                                    that.parse();
+                                });
+                            }, 300)
+                        })
                     })
-                })
+                }, 1200);
             }, 2400);
+        }
+    }
+
+    skipProgramOnset() {
+        this.tokens.forEach(function (line) {
+            line.forEach(function(element) {
+                element.style.transform = 'none';
+            });
+        });
+    }
+
+    parse(lineIndex, tokenIndex, callback) {
+        const that = this;
+
+        lineIndex = lineIndex ? lineIndex : 0;
+        tokenIndex = tokenIndex ? tokenIndex : 0;
+
+        const token = this.tokens[lineIndex][tokenIndex];
+        console.log(token);
+        if (!token.classList.contains('break-line')) {
+            this.setSelectionByOne(0, 0, token.innerText.length, true, function () {
+                that.hideSelection();
+                that.setCursor(0, 0);
+                that.hideToken(token, nextToken(), function () {
+                    let delay = {min: 200, max: 400};
+
+                    if (nextToken()) {
+                        if (nextToken().className.includes('break-line')) {
+                            delay = {min: 0, max: 0}
+                        }
+                    }
+
+                    parseNext(delay);
+                });
+            });
+        } else {
+            console.log('line up');
+
+            this.topOffset -= this.cornerstone.height;
+            $tokensWrapper.style.transform = 'translateY(' + that.topOffset + 'px)';
+
+            parseNext({min: 90, max: 120});
+        }
+
+        function parseNext(delay) {
+            setTimeout(function() {
+                if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
+                    if (lineIndex + 1 >= that.tokens.length) {
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
+                    } else {
+                        that.parse(lineIndex + 1, 0);
+                    }
+                } else {
+                    that.parse(lineIndex, tokenIndex + 1);
+                }
+            }, getRndInteger(delay.min, delay.max));
+        }
+        function nextToken() {
+            if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
+                    if (lineIndex + 1 >= that.tokens.length) {
+                        if (typeof callback === 'function') {
+                            return null; // end of program
+                        }
+                    } else {
+                        return null; // end of line
+                    }
+                } else {
+                    return that.tokens[lineIndex][tokenIndex + 1];
+                }
+        }
+    }
+
+    // practical methods
+
+    hideToken(token, nextToken, callback) {
+        const that = this;
+
+        const duration = 100;
+        token.style.transitionDuration = duration + 'ms';
+        token.style.transitionTimingFunction = 'ease-in-out';
+        token.style.transitionProperty = 'none';
+        token.offsetHeight;
+
+        animate({
+            duration: duration,
+            timing: linear,
+            draw: function(progress) {
+                token.style.width = token.offsetWidth * (1 - progress) + 'px';
+                if (nextToken) {
+                    if (nextToken.classList.contains('break-line')) {
+                        nextToken.style.height = progress === 1 ? that.cornerstone.height + 'px' : '0';
+                    }
+                }
+            }
+        });
+
+
+        if (typeof callback === 'function') {
+            setTimeout(function() {
+                token.offsetHeight;
+                // $tokensWrapper.removeChild(token);
+
+                callback();
+            }, duration);
+        }
+    }
+
+    appendNode(text, x, y, callback) {
+        let that = this;
+
+        let $newNode = document.createElement('div');
+        $newNode.classList.add('token', 'node');
+        $newNode.innerText = text;
+        $newNode.style.top = y * this.cornerstone.height + 'px';
+        $newNode.style.left = x * this.cornerstone.width + 'px';
+        $newNode.style.width = '0';
+        $newNode.style.transitionDuration = '0.1s';
+
+        $programWrapper.appendChild($newNode);
+        reflow($newNode);
+
+        this.setCursor(x, y);
+
+        typing(0);
+
+        function typing(duration) {
+            setTimeout(function() {
+                that.$cursor.classList.add('non-animation');
+                if (that.cursorPos.x < x + text.length) {
+                    that.setCursor(that.cursorPos.x + 1, y);
+                    $newNode.style.width = (that.cursorPos.x - x) * that.cornerstone.width;
+
+                    let delay = getRndInteger(200, 300);
+                    if (text[that.cursorPos.x - x - 1] === text[that.cursorPos.x - x]) {
+                        delay = getRndInteger(100, 150)
+                    }
+                    typing(delay);
+                } else {
+                    that.$cursor.classList.remove('non-animation');
+                    callback();
+                }
+            }, duration);
+        }
+
+        return $newNode;
+    }
+
+    setSelection(x, y, width, leftToRight, callback) {
+        let duration = 100;
+        this.$selection.style.transitionDuration = duration / 1000 + 's';
+
+        this.$selectionWrapper.style.left = x * this.cornerstone.width + 'px';
+        this.$selectionWrapper.style.top = y * this.cornerstone.height + 'px';
+        this.$selectionWrapper.style.width = width * this.cornerstone.width + 'px';
+
+        if (leftToRight) {
+            this.$selectionWrapper.style.transform = 'rotate(0deg)';
+            this.setCursor(x + width, y);
+        } else {
+            this.$selectionWrapper.style.transform = 'rotate(180deg)';
+            this.setCursor(x, y);
+        }
+
+        this.$selection.style.right = '100%';
+        this.$selection.style.left = '0';
+
+        this.$selection.style.right = '0';
+
+        this.selection.x = x;
+        this.selection.y = y;
+        this.selection.width = width;
+
+        reflow(this.$selectionWrapper);
+
+        if (typeof callback == "function") {
+            setTimeout(function() {
+                callback()
+            }, duration);
+        }
+    }
+
+    setSelectionByOne(x, y, width, leftToRight, callback) {
+        this.$cursor.classList.add('non-animation');
+        this.setSelection(x, y, 0, true);
+
+        this.$selectionWrapper.style.transitionDuration = '0.1s';
+
+        if (this.selection.width < width) {
+            const that = this;
+            this.changeSelectionWidthTo(width, leftToRight, function() {
+                that.$cursor.classList.remove('non-animation');
+                that.$selectionWrapper.style.transitionDuration = '0s';
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            });
+        }
+    }
+
+    changeSelectionWidthTo(width, rightArrowed, callback) {
+        if (this.selection.width < width) {
+            if (rightArrowed) {
+                this.selection.width++;
+                this.setCursor(this.cursorPos.x + 1, this.cursorPos.y);
+                this.$selectionWrapper.style.width = this.selection.width * this.cornerstone.width + 'px';
+            } else {
+                this.selection.width++;
+                this.selection.x--;
+                this.$selectionWrapper.style.left = this.selection.x * this.cornerstone.width + 'px';
+                this.$selectionWrapper.style.width = this.selection.width * this.cornerstone.width + 'px';
+                // this.moveCursor(this.cursorPos.x - 1, this.cursorPos.y);
+            }
+
+            const that = this;
+            setTimeout(function() {
+                that.changeSelectionWidthTo(width, rightArrowed, callback);
+            }, getRndInteger(100, 180));
+        } else {
+            if (typeof callback === 'function') {
+                callback();
+            }
+        }
+    }
+
+    hideSelection(smooth, rightDirected) {
+        if (smooth) {
+
+        } else {
+            this.setSelection(this.cursorPos.x, this.cursorPos.y, 0, true);
+        }
+    }
+
+    setCursor(x, y) {
+        this.cursorPos = {
+            x: x,
+            y: y
+        };
+
+        this.$cursor.style.left = this.cursorPos.x * this.cornerstone.width + 'px';
+        this.$cursor.style.top = this.cursorPos.y * this.cornerstone.height + 'px';
+        this.$cursor.style.display = 'block';
+    }
+
+    moveCursor(x, y, callback) {
+        if ((this.cursorPos.x !== x) || (this.cursorPos.y !== y)) {
+            this.$cursor.classList.add('non-animation');
+            if (y !== this.cursorPos.y) {
+                if (y > this.cursorPos.y) {
+                    this.cursorPos.y++;
+                } else {
+                    this.cursorPos.y--;
+                }
+            } else if (x !== this.cursorPos.x) {
+                if (x > this.cursorPos.x) {
+                    this.cursorPos.x++;
+                } else {
+                    this.cursorPos.x--;
+                }
+            }
+
+            this.$cursor.style.left = this.cursorPos.x * this.cornerstone.width + 'px';
+            this.$cursor.style.top = this.cursorPos.y * this.cornerstone.height + 'px';
+            this.$cursor.style.display = 'block';
+
+            let that = this;
+            setTimeout(function() {
+                that.moveCursor(x, y, callback);
+            }, getRndInteger(50, 150));
+        } else {
+            this.$cursor.classList.remove('non-animation');
+            if (typeof callback == 'function') {
+                callback();
+            }
         }
     }
 }
 
+let code;
+
 if (sessionStorage.getItem('chain') != null) {
 
-    let code = new Code(
+    code = new Code(
         JSON.parse(sessionStorage.getItem('chain')),
         JSON.parse(sessionStorage.getItem('tables'))
     );
+    code.renderTokens();
+    code.skipProgramOnset();
+    code.setCursor(0, 0);
+
+    setTimeout(function() {
+        code.parse();
+    }, 1000);
+
 } else {
     $welcomeWrapper.classList.remove('hide');
 }
-
-// code.moveCursor(0, -7);
-// code.appendNode('', 0, -7, function() {
-//     code.setSelection(0, -7, '3213456789098765435678987'.length, false)
-// });
 
 function welcomeDepart() {
     let words = document.getElementsByClassName('welcome-word');
@@ -512,14 +684,16 @@ function parse(code) {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     xhr.onreadystatechange = function() {
-      if (this.readyState !== 4) return;
+        if (this.readyState !== 4) return;
 
-      let chain = JSON.parse(this.responseText);
-      // console.log(chain);
+        let chain = JSON.parse(this.responseText);
 
-      code = new Code(chain.chain, chain.tables);
-      sessionStorage.setItem('chain', JSON.stringify(chain.chain));
-      sessionStorage.setItem('tables', JSON.stringify(chain.tables));
+        sessionStorage.setItem('chain', JSON.stringify(chain.chain));
+        sessionStorage.setItem('tables', JSON.stringify(chain.tables));
+
+        code = new Code(chain.chain, chain.tables);
+        code.renderTokens();
+        code.programOnset(code.tokens.length-1);
     };
 
     xhr.send(body)
@@ -547,26 +721,26 @@ function reflow(elt){
     elt.offsetHeight;
 }
 
-// function animate(options) {
-//
-//   let start = performance.now();
-//
-//   requestAnimationFrame(function animate(time) {
-//     // timeFraction от 0 до 1
-//     let timeFraction = (time - start) / options.duration;
-//     if (timeFraction > 1) timeFraction = 1;
-//
-//     // текущее состояние анимации
-//     let progress = options.timing(timeFraction);
-//
-//     options.draw(progress);
-//
-//     if (timeFraction < 1) {
-//       requestAnimationFrame(animate);
-//     }
-//
-//   });
-// }
+function animate(options) {
+
+  let start = performance.now();
+
+  requestAnimationFrame(function animate(time) {
+    // timeFraction от 0 до 1
+    let timeFraction = (time - start) / options.duration;
+    if (timeFraction > 1) timeFraction = 1;
+
+    // текущее состояние анимации
+    let progress = options.timing(timeFraction);
+
+    options.draw(progress);
+
+    if (timeFraction < 1) {
+      requestAnimationFrame(animate);
+    }
+
+  });
+}
 
 function linear(progress) {
   return progress
@@ -580,13 +754,13 @@ function linear(progress) {
 //   return Math.pow(1 - progress, 0.2)
 // }
 //
-// function easeInOut(progress) {
-//     if (progress <= 0.5) { // первая половина анимации)
-//         return timing(2 * progress) / 2;
-//     } else { // вторая половина
-//         return (2 - timing(2 * (1 - progress))) / 2;
-//     }
-// }
+function easeInOut(progress) {
+    if (progress <= 0.5) { // первая половина анимации)
+        return timing(2 * progress) / 2;
+    } else { // вторая половина
+        return (2 - timing(2 * (1 - progress))) / 2;
+    }
+}
 //
 // function quad(progress) {
 //   return Math.pow(progress, 0.9)

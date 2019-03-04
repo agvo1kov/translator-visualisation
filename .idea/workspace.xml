@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adc5ed42-fb85-4bce-acfc-5714d3af9994" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/agvolkov5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab1/static/lab1/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" afterDir="false" />
@@ -31,20 +30,56 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+            <state relative-caret-position="450">
+              <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="405" selection-start-line="405" selection-end-line="405" />
+            <state relative-caret-position="275">
+              <caret line="378" column="31" lean-forward="true" selection-start-line="378" selection-start-column="31" selection-end-line="378" selection-end-column="31" />
+              <folding>
+                <element signature="n#!!block;n#constructor#0;n#Code#0" />
+                <element signature="e#537#583#0" />
+                <element signature="e#962#1031#0" />
+                <element signature="e#1870#1886#0" />
+                <element signature="e#2561#2800#0" />
+                <element signature="e#2849#2927#0" />
+                <element signature="e#3805#3930#0" />
+                <element signature="e#8964#10800#0" />
+                <element signature="e#10070#10189#0" />
+                <element signature="e#10824#10840#0" />
+                <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+                <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+                <element signature="e#10843#12170#0" />
+                <element signature="e#10859#11859#0" />
+                <element signature="e#13957#15236#0" />
+                <element signature="e#14174#14392#0" />
+                <element signature="e#16285#16499#0" />
+                <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
+                <element signature="e#16906#18059#0" />
+                <element signature="n#!!block;n#welcomeDepart#0" />
+                <element signature="e#11927#11978#0" />
+                <element signature="e#12031#12082#0" />
+                <element signature="n#!!block;n#hundleFileSelect#0" />
+                <element signature="n#!!block;n#dropHandler#0" />
+                <element signature="n#!!block;n#readFile#0" />
+                <element signature="e#20620#21878#0" />
+                <element signature="e#13296#13320#0" />
+                <element signature="e#13527#13659#0" />
+                <element signature="e#14411#14507#0" />
+                <element signature="e#14560#14662#0" />
+                <element signature="n#!!block;n#dragOverHandler#0" />
+                <element signature="n#!!block;n#getRndInteger#0" />
+                <element signature="n#!!block;n#reflow#0" />
+                <element signature="n#!!block;n#linear#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="93" column="28" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
+            <state relative-caret-position="295">
+              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
             </state>
           </provider>
         </entry>
@@ -103,8 +138,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>moveCursor</find>
-      <find>ease</find>
       <find>hundleFileSelect</find>
+      <find>transition</find>
+      <find>righte</find>
+      <find>break</find>
+      <find>ease</find>
+      <find>wrap</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -125,9 +164,9 @@
         <option value="$PROJECT_DIR$/lab1/static/lab1/script.js" />
         <option value="$PROJECT_DIR$/lab1/templates/lab1/parse_response.html" />
         <option value="$PROJECT_DIR$/lab1/views.py" />
+        <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/styles.css" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/welcome.js" />
-        <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
       </list>
     </option>
   </component>
@@ -266,12 +305,12 @@
       <updated>1551443616463</updated>
       <workItem from="1551443617761" duration="16354000" />
       <workItem from="1551533348618" duration="14879000" />
-      <workItem from="1551572809213" duration="29012000" />
+      <workItem from="1551572809213" duration="51456000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60245000" />
+    <option name="totallyTimeSpent" value="82689000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -378,24 +417,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="93" column="28" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
+        <state relative-caret-position="295">
+          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="405" selection-start-line="405" selection-end-line="405" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+        <state relative-caret-position="275">
+          <caret line="378" column="31" lean-forward="true" selection-start-line="378" selection-start-column="31" selection-end-line="378" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#Code#0" />
+            <element signature="e#537#583#0" />
+            <element signature="e#962#1031#0" />
+            <element signature="e#1870#1886#0" />
+            <element signature="e#2561#2800#0" />
+            <element signature="e#2849#2927#0" />
+            <element signature="e#3805#3930#0" />
+            <element signature="e#8964#10800#0" />
+            <element signature="e#10070#10189#0" />
+            <element signature="e#10824#10840#0" />
+            <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+            <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+            <element signature="e#10843#12170#0" />
+            <element signature="e#10859#11859#0" />
+            <element signature="e#13957#15236#0" />
+            <element signature="e#14174#14392#0" />
+            <element signature="e#16285#16499#0" />
+            <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
+            <element signature="e#16906#18059#0" />
+            <element signature="n#!!block;n#welcomeDepart#0" />
+            <element signature="e#11927#11978#0" />
+            <element signature="e#12031#12082#0" />
+            <element signature="n#!!block;n#hundleFileSelect#0" />
+            <element signature="n#!!block;n#dropHandler#0" />
+            <element signature="n#!!block;n#readFile#0" />
+            <element signature="e#20620#21878#0" />
+            <element signature="e#13296#13320#0" />
+            <element signature="e#13527#13659#0" />
+            <element signature="e#14411#14507#0" />
+            <element signature="e#14560#14662#0" />
+            <element signature="n#!!block;n#dragOverHandler#0" />
+            <element signature="n#!!block;n#getRndInteger#0" />
+            <element signature="n#!!block;n#reflow#0" />
+            <element signature="n#!!block;n#linear#0" />
+          </folding>
         </state>
       </provider>
     </entry>

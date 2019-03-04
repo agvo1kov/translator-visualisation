@@ -16,6 +16,15 @@
     animation: none !important;
 }
 
+@keyframes fold-left {
+    0% {
+        width: auto;
+    }
+    100% {
+        width: 0;
+    }
+}
+
 body {
     background: white;
     perspective: 500pt;
@@ -50,7 +59,7 @@ body.is-drag-over {
     right: 0;
     bottom: 0;
 
-    /*overflow: hidden;*/
+    overflow: hidden;
 
     filter: blur(0px);
     transform: scale(1);
@@ -155,14 +164,37 @@ body.is-drag-over {
     /*transition-property: all;*/
 }
 
+.tokens-wrapper {
+    z-index: 2;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /*align-content: center;*/
+    align-content: flex-start;
+
+    position: relative;
+    width: 100vw;
+
+    transition-duration: 100ms;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transition-property: all;
+}
+
     .token {
         z-index: 2;
+        position: relative;
 
         font-family: monospace;
         font-size: 32pt;
+        white-space: nowrap;
+
+        overflow: hidden;
 
         transition-duration: 1s;
-        /*transition-timing-function: ease-in-out;*/
+        transition-timing-function: ease-in-out;
+        transition-property: all;
     }
 
         .break-line {
@@ -229,8 +261,8 @@ body.is-drag-over {
     width: 0;
 
     /*transition-duration: 0.1s;*/
-    /*transition-timing-function: ease-in-out;*/
-    /*transition-property: width;*/
+    transition-timing-function: ease-in-out;
+    transition-property: width, left;
 }
 
     .selection {
@@ -253,7 +285,6 @@ body.is-drag-over {
     overflow: hidden;
 
     height: 32pt;
-    white-space: nowrap;
 }
 
 @keyframes text-cursor-flecker {
