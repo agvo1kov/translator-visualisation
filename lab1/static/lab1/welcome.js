@@ -338,11 +338,10 @@ class Code {
                                     that.hideSelection(false);
                                     that.moveCursor(0, 0, function() {
                                         // parseNext(delay)
+                                        console.log(that.tables);
                                     });
                                 }, getRndInteger(80, 120));
-                            });
-
-                            //
+                            })
                         })
                     })
                 })
