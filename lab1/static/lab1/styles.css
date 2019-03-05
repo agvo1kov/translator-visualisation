@@ -243,11 +243,22 @@ body.is-drag-over {
 
     background: black;
 
+    /*opacity: 0;*/
+
     /*border-radius: 5pt;*/
 
     animation: text-cursor-flecker 0.9s ease-in-out 0s infinite forwards reverse;
     transition-duration: 0.1s;
     transition-timing-function: ease-in-out;
+}
+
+@keyframes text-cursor-flecker {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .selection-wrapper {
@@ -285,13 +296,4 @@ body.is-drag-over {
     overflow: hidden;
 
     height: 32pt;
-}
-
-@keyframes text-cursor-flecker {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }

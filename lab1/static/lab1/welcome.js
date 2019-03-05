@@ -53,12 +53,15 @@ class Code {
         this.$breakLine.className = 'break-line';
 
         this.$indent = document.createElement('div');
-        this.$indent.classList.add('token');
+        this.$indent.classList.add('token', 'indent');
         this.$indent.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;';
 
         this.$space = document.createElement('div');
         this.$space.classList.add('token', 'space');
         this.$space.innerHTML = '&nbsp;';
+
+        this.$plug = $cornerstone.cloneNode(true);
+        this.$plug.innerHTML = '&nbsp;';
     }
 
     renderTokens() {
@@ -94,6 +97,7 @@ class Code {
 
                 if (this.chain[i][2] === 'else') {
                     const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild(this.$plug.cloneNode(true));
                     $tokensWrapper.appendChild($newBreakLine);
                     this.tokens[this.tokens.length-1].push($newBreakLine);
 
@@ -121,6 +125,7 @@ class Code {
                     for (let j = 0; j < indent; j++) {
                         const $newIndent = this.$indent.cloneNode(true);
                         $tokensWrapper.appendChild($newIndent);
+
                         this.tokens[this.tokens.length-1].push($newIndent);
                     }
                 }
@@ -128,6 +133,7 @@ class Code {
                 console.log(this.chain[i][2], this.chain[i][3], indent, numberOfLine);
 
                 $tokensWrapper.appendChild($newToken);
+
                 this.tokens[this.tokens.length-1].push($newToken);
 
                 let transitionX = getRndInteger(20, 50),
@@ -171,6 +177,7 @@ class Code {
 
                 if (this.chain[i][2] === ';') {
                     const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild(this.$plug.cloneNode(true));
                     $tokensWrapper.appendChild($newBreakLine);
                     this.tokens[this.tokens.length-1].push($newBreakLine);
                     this.tokens.push([]);
@@ -194,6 +201,7 @@ class Code {
                     || (this.chain[i][2] === 'then') || (this.chain[i][2] === 'else')
                     || (this.chain[i][2] === 'const')) {
                     const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild(this.$plug.cloneNode(true));
                     $tokensWrapper.appendChild($newBreakLine);
                     this.tokens[this.tokens.length-1].push($newBreakLine);
                     this.tokens.push([]);
@@ -229,6 +237,7 @@ class Code {
 
                 if ((this.chain[i][2] === ':') && (!varFlag)) {
                     const $newBreakLine = this.$breakLine.cloneNode();
+                    $tokensWrapper.appendChild(this.$plug.cloneNode(true));
                     $tokensWrapper.appendChild($newBreakLine);
                     this.tokens[this.tokens.length-1].push($newBreakLine);
                     this.tokens.push([]);
@@ -310,10 +319,35 @@ class Code {
         const token = this.tokens[lineIndex][tokenIndex];
         console.log(token);
         if (!token.classList.contains('break-line')) {
-            this.setSelectionByOne(0, 0, token.innerText.length, true, function () {
-                that.hideSelection();
-                that.setCursor(0, 0);
-                that.hideToken(token, nextToken(), function () {
+            if (!token.classList.contains('space') && !token.classList.contains('indent')) {
+                this.setSelectionByOne(0, 0, token.innerText.length, true, function () {
+                    that.hideSelection();
+                    that.setCursor(0, 0);
+                    that.hideToken(token, function () {
+                        let delay = {min: 200, max: 400};
+
+                        if (nextToken()) {
+                            if (nextToken().className.includes('break-line')) {
+                                delay = {min: 0, max: 0}
+                            }
+                        }
+
+                        that.moveCursor(0, -2, function() {
+                            that.pasteToken(token, 0, -2, function() {
+                                setTimeout(function() {
+                                    that.hideSelection(false);
+                                    that.moveCursor(0, 0, function() {
+                                        // parseNext(delay)
+                                    });
+                                }, getRndInteger(80, 120));
+                            });
+
+                            //
+                        })
+                    })
+                })
+            } else {
+                that.hideToken(token, function () {
                     let delay = {min: 200, max: 400};
 
                     if (nextToken()) {
@@ -324,7 +358,7 @@ class Code {
 
                     parseNext(delay);
                 });
-            });
+            }
         } else {
             console.log('line up');
 
@@ -366,9 +400,7 @@ class Code {
 
     // practical methods
 
-    hideToken(token, nextToken, callback) {
-        const that = this;
-
+    hideToken(token, callback) {
         const duration = 100;
         token.style.transitionDuration = duration + 'ms';
         token.style.transitionTimingFunction = 'ease-in-out';
@@ -379,21 +411,18 @@ class Code {
             duration: duration,
             timing: linear,
             draw: function(progress) {
-                token.style.width = token.offsetWidth * (1 - progress) + 'px';
-                if (nextToken) {
-                    if (nextToken.classList.contains('break-line')) {
-                        nextToken.style.height = progress === 1 ? that.cornerstone.height + 'px' : '0';
-                    }
+                token.style.width = token.offsetWidth * (1 - progress) + 1 + 'px';
+                if (progress === 1) {
+                    token.style.display = 'none';
+                    $tokensWrapper.removeChild(token);
                 }
             }
         });
+        // token.style.background = '#ffcce4';
 
 
         if (typeof callback === 'function') {
             setTimeout(function() {
-                token.offsetHeight;
-                // $tokensWrapper.removeChild(token);
-
                 callback();
             }, duration);
         }
@@ -439,7 +468,57 @@ class Code {
         return $newNode;
     }
 
+    pasteToken(token, x, y, callback) {
+        const that = this;
+        const duration = 100;
+        token.style.position = 'absolute';
+        token.style.left = x * this.cornerstone.width + 'px';
+        token.style.top = y * this.cornerstone.height + 'px';
+        token.style.display = 'block';
+        token.style.width = 'auto';
+        token.style.opacity = '0';
+
+        $programWrapper.appendChild(token);
+        token.offsetHeight;
+
+        const tokenDefaultWidth = token.offsetWidth;
+        token.style.width = '0';
+        token.style.opacity = '1';
+        token.offsetHeight;
+
+        console.log(tokenDefaultWidth);
+
+        // this.setCursor(x + token.innerHTML.length, y);
+        // this.setSelection(x, y, token.innerHTML.length, true);
+
+        this.$cursor.classList.add('non-animation');
+        this.$cursor.classList.add('non-transition');
+        this.$selectionWrapper.classList.add('non-transition');
+
+        this.$selectionWrapper.style.left = x * this.cornerstone.width + 'px';
+        this.$selectionWrapper.style.top = y * this.cornerstone.height + 'px';
+        animate({
+            duration: duration,
+            timing: linear,
+            draw: function(progress) {
+                token.style.width = tokenDefaultWidth * progress + 'px';
+                that.$cursor.style.left = tokenDefaultWidth * progress + 'px';
+                that.$selectionWrapper.style.width = tokenDefaultWidth * progress + 'px';
+            }
+        });
+
+        setTimeout(function() {
+            if (typeof callback === 'function') {
+                that.$cursor.classList.remove('non-animation');
+                that.$cursor.classList.remove('non-transition');
+                that.$selectionWrapper.classList.remove('non-transition');
+                callback()
+            }
+        }, duration)
+    }
+
     setSelection(x, y, width, leftToRight, callback) {
+        console.log('setSelection', x, y, width, leftToRight);
         let duration = 100;
         this.$selection.style.transitionDuration = duration / 1000 + 's';
 
@@ -530,6 +609,7 @@ class Code {
             y: y
         };
 
+        // this.$cursor.style.transitionDuration = '100ms';
         this.$cursor.style.left = this.cursorPos.x * this.cornerstone.width + 'px';
         this.$cursor.style.top = this.cursorPos.y * this.cornerstone.height + 'px';
         this.$cursor.style.display = 'block';
