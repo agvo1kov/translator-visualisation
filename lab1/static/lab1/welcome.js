@@ -6,7 +6,8 @@ let $wrapper = document.getElementById('wrapper'),
     $cornerstone = document.getElementById('cornerstone'),
     $programWrapper = document.getElementById('program-wrapper'),
     $tokensWrapper = document.getElementById('tokens-wrapper'),
-    $tablesWrapper = document.getElementById('tables-wrapper');
+    $tablesWrapper = document.getElementById('tables-wrapper'),
+    $chainWrapper = document.getElementById('chain-wrapper');
 
 class Code {
 
@@ -68,8 +69,13 @@ class Code {
         this.$table.className = 'table';
 
         this.$serviceWordsTable = null;
+        this.$identifiersTable = null;
+        this.$separatorsTable = null;
+        this.$operationsTable = null;
+        this.$constantsTable = null;
 
         $tablesWrapper.style.top = '-' + 3 * this.cornerstone.height + 'px';
+        this.currentTokenNumber = 0;
     }
 
     renderTokens() {
@@ -265,9 +271,18 @@ class Code {
         $programWrapper.appendChild(this.$selectionWrapper);
         reflow(this.$selectionWrapper);
 
+    //    Render chain
+        for (let i = 0; i < this.chain.length; i++) {
+            const $newUnit = document.createElement('div');
+            const newClass = this.chain[i][3] === 'constant' ? this.chain[i][4] : this.chain[i][3];
+            $newUnit.classList.add('token', newClass);
+            $newUnit.setAttribute('id', 'unit-number-' + i);
+            $newUnit.innerText = this.chain[i][0] + this.chain[i][1].toString();
+            $chainWrapper.appendChild($newUnit);
+        }
+
     //    Render tables
         if ('service_words' in this.tables) {
-
             const $serviceWordsTable = this.$table.cloneNode();
             for (let i = 0; i < this.tables.service_words.length; i++) {
                 const $code = document.createElement('div');
@@ -289,11 +304,107 @@ class Code {
                 $serviceWordsTable.appendChild($newItem);
             }
             this.$serviceWordsTable = $serviceWordsTable;
-            // this.$tables.push({
-            //     type: 'service_words',
-            //     table: this.$serviceWordsTable
-            // });
             $tablesWrapper.appendChild(this.$serviceWordsTable);
+        }
+
+        if ('separators' in this.tables) {
+            const $separatorsTable = this.$table.cloneNode();
+            for (let i = 0; i < this.tables.separators.length; i++) {
+                const $code = document.createElement('div');
+                $code.className = 'code separator';
+                $code.setAttribute('id', this.tables.separators[i] + '-code');
+                $code.innerText = 'R' + i;
+
+                const $token = document.createElement('div');
+                $token.className = 'token separator';
+                $token.setAttribute('id', this.tables.separators[i] + '-token');
+                $token.innerText = this.tables.separators[i];
+
+                const $newItem = document.createElement('div');
+                $newItem.className = 'item';
+                $newItem.setAttribute('id', this.tables.separators[i] + '-item');
+                $newItem.appendChild($code);
+                $newItem.appendChild($token);
+
+                $separatorsTable.appendChild($newItem);
+            }
+            this.$separatorsTable = $separatorsTable;
+            $tablesWrapper.appendChild(this.$separatorsTable);
+        }
+
+        if ('operations' in this.tables) {
+            const $operationsTable = this.$table.cloneNode();
+            for (let i = 0; i < this.tables.operations.length; i++) {
+                const $code = document.createElement('div');
+                $code.className = 'code operation';
+                $code.setAttribute('id', this.tables.operations[i] + '-code');
+                $code.innerText = 'O' + i;
+
+                const $token = document.createElement('div');
+                $token.className = 'token operation';
+                $token.setAttribute('id', this.tables.operations[i] + '-token');
+                $token.innerText = this.tables.operations[i];
+
+                const $newItem = document.createElement('div');
+                $newItem.className = 'item';
+                $newItem.setAttribute('id', this.tables.operations[i] + '-item');
+                $newItem.appendChild($code);
+                $newItem.appendChild($token);
+
+                $operationsTable.appendChild($newItem);
+            }
+            this.$operationsTable = $operationsTable;
+            $tablesWrapper.appendChild(this.$operationsTable);
+        }
+
+        if ('identifiers' in this.tables) {
+            const $identifiersTable = this.$table.cloneNode();
+            for (let i = 0; i < this.tables.identifiers.length; i++) {
+                const $code = document.createElement('div');
+                $code.className = 'code identifier';
+                $code.setAttribute('id', this.tables.identifiers[i].name + '-code');
+                $code.innerText = 'I' + i;
+
+                const $token = document.createElement('div');
+                $token.className = 'token identifier';
+                $token.setAttribute('id', this.tables.identifiers[i].name + '-token');
+                $token.innerText = this.tables.identifiers[i].name;
+
+                const $newItem = document.createElement('div');
+                $newItem.className = 'item';
+                $newItem.setAttribute('id', this.tables.identifiers[i].name + '-item');
+                $newItem.appendChild($code);
+                $newItem.appendChild($token);
+
+                $identifiersTable.appendChild($newItem);
+            }
+            this.$identifiersTable = $identifiersTable;
+            $tablesWrapper.appendChild(this.$identifiersTable);
+        }
+
+        if ('constants' in this.tables) {
+            const $constantsTable = this.$table.cloneNode();
+            for (let i = 0; i < this.tables.constants.length; i++) {
+                const $code = document.createElement('div');
+                $code.classList.add('code', this.tables.constants[i].type);
+                $code.setAttribute('id', this.tables.constants[i].value.replace(' ', '_') + '-code');
+                $code.innerText = 'C' + i;
+
+                const $token = document.createElement('div');
+                $token.classList.add('token', this.tables.constants[i].type);
+                $token.setAttribute('id', this.tables.constants[i].value.replace(' ', '_') + '-token');
+                $token.innerText = this.tables.constants[i].type === 'string' ? '\'' + this.tables.constants[i].value + '\'' : this.tables.constants[i].value;
+
+                const $newItem = document.createElement('div');
+                $newItem.className = 'item';
+                $newItem.setAttribute('id', this.tables.constants[i].value.replace(' ', '_') + '-item');
+                $newItem.appendChild($code);
+                $newItem.appendChild($token);
+
+                $constantsTable.appendChild($newItem);
+            }
+            this.$constantsTable = $constantsTable;
+            $tablesWrapper.appendChild(this.$constantsTable);
         }
     }
 
@@ -376,7 +487,26 @@ class Code {
                                 setTimeout(function() {
                                     that.hideSelection(false);
                                     that.moveCursor(0, 0);
-                                    that.hitTableFor(that.$serviceWordsTable, token);
+
+                                    let table = that.$serviceWordsTable;
+                                    console.log('CLASS', token.classList);
+                                    if (token.classList.contains('identifier')) {
+                                        table = that.$identifiersTable;
+                                    }
+                                    if (token.classList.contains('separator')) {
+                                        table = that.$separatorsTable;
+                                    }
+                                    if (token.classList.contains('operation')) {
+                                        table = that.$operationsTable;
+                                    }
+                                    if (token.classList.contains('integer') || token.classList.contains('real') || token.classList.contains('string')) {
+                                        table = that.$constantsTable;
+                                    }
+
+                                    that.hitTableFor(table, token, function() {
+                                        that.currentTokenNumber++;
+                                        parseNext(delay);
+                                    });
                                 }, getRndInteger(80, 120));
                             })
                         })
@@ -436,29 +566,52 @@ class Code {
 
     // practical methods
 
-    hitTableFor($table, $token, $callback) {
+    hitTableFor($table, $token, callback) {
         const that = this;
         const duration = 150;
-        document.getElementById($token.innerHTML + '-item').classList.add('current');
+        let tokenText = $token.innerText;
+        if ($token.classList.contains('string')) {
+            tokenText = tokenText.replace(' ', '_').substr(1).slice(0, -1);
+        }
+        console.log('XLASS', tokenText);
+        document.getElementById(tokenText + '-item').classList.add('current');
         $table.style.transition = 'all ' + duration + 'ms ease-in-out';
         $table.style.opacity = '1';
-        $table.style.left = -document.getElementById($token.innerHTML + '-token').offsetLeft + 'px';
-        console.log(document.getElementById($token.innerHTML + '-token'));
+        $table.style.left = -document.getElementById(tokenText + '-token').offsetLeft + 'px';
+        console.log(document.getElementById(tokenText + '-token'));
 
         setTimeout(function() {
             $table.style.transition = 'all ' + (duration * 0.7) + 'ms ease-in';
             $table.style.top = that.cornerstone.height + 'px';
 
             setTimeout(function() {
-                const $tokenCode = document.getElementById($token.innerHTML + '-item');
-                // console.log($tokenCode.offsetLeft);
-                console.log(that.chain);
+                const $tokenCode = document.getElementById(tokenText + '-item');
+                const $appropriateUnit = document.getElementById('unit-number-' + that.currentTokenNumber);
+                const tokenCodePos = getPosition($tokenCode);
+                const appropriateUnitPos = getPosition($appropriateUnit);
+                const xDist = tokenCodePos.x - appropriateUnitPos.x;
+                const yDist = tokenCodePos.y - appropriateUnitPos.y;
+
+                $appropriateUnit.style.transition = 'none';
+                $appropriateUnit.style.transform = 'translate(' + (xDist + 8) + 'px, ' + (yDist + 8) + 'px) scale(1.5238095238095237)';
+                $appropriateUnit.style.opacity = '1';
 
                 $table.style.transition = 'all 100ms ease-in';
                 $table.style.opacity = '0';
 
                 $token.style.transition = 'all 100ms ease-in';
                 $token.style.opacity = '0';
+
+                setTimeout(function() {
+                    $appropriateUnit.style.transition = 'all 1000ms ease-in-out';
+                    $appropriateUnit.style.transform = 'none';
+                    $table.style.top = '0';
+                    document.getElementById($token.innerHTML + '-item').classList.remove('current');
+                }, 100);
+
+                if (typeof callback === 'function') {
+                    callback();
+                }
             }, 2 * duration);
         }, 2 * duration);
     }
@@ -831,6 +984,9 @@ function parse(code) {
 
         let chain = JSON.parse(this.responseText);
 
+        sessionStorage.removeItem('chain');
+        sessionStorage.removeItem('tables');
+
         sessionStorage.setItem('chain', JSON.stringify(chain.chain));
         sessionStorage.setItem('tables', JSON.stringify(chain.tables));
 
@@ -857,6 +1013,19 @@ function dragOverHandler(ev) {
 
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function getPosition(element) {
+    let xPosition = 0;
+    let yPosition = 0;
+
+    while(element) {
+        xPosition += (element.offsetLeft - element.scrollLeft + element.clientLeft);
+        yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
+        element = element.offsetParent;
+    }
+
+    return { x: xPosition, y: yPosition };
 }
 
 function reflow(elt){

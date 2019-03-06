@@ -30,20 +30,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="32" column="64" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
+            <state relative-caret-position="405">
+              <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="454" column="38" selection-start-line="454" selection-start-column="38" selection-end-line="454" selection-end-column="38" />
+            <state relative-caret-position="360">
+              <caret line="573" column="74" selection-start-line="573" selection-start-column="74" selection-end-line="573" selection-end-column="74" />
               <folding>
                 <element signature="e#2369#10081#0" />
                 <element signature="e#2782#10071#0" />
@@ -68,11 +68,11 @@
                 <element signature="n#!!block;n#handleFileSelect#0" />
                 <element signature="n#!!block;n#dropHandler#0" />
                 <element signature="n#!!block;n#readFile#0" />
-                <element signature="n#!!block;n#parse#0" />
                 <element signature="e#29503#29599#0" />
                 <element signature="e#29652#29754#0" />
                 <element signature="n#!!block;n#dragOverHandler#0" />
                 <element signature="n#!!block;n#getRndInteger#0" />
+                <element signature="n#!!block;n#getPosition#0" />
                 <element signature="n#!!block;n#reflow#0" />
                 <element signature="n#!!block;n#animate#0" />
                 <element signature="n#!!block;n#linear#0" />
@@ -87,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="352" column="10" selection-start-line="352" selection-start-column="10" selection-end-line="352" selection-end-column="10" />
+            <state relative-caret-position="545">
+              <caret line="359" column="18" selection-start-line="359" selection-start-column="18" selection-end-line="359" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -96,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+            <state relative-caret-position="450">
+              <caret line="30" column="27" lean-forward="true" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -146,6 +146,7 @@
       <find>wrap</find>
       <find>text-cursor-flecker</find>
       <find>anim</find>
+      <find>$identifiersTable</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,10 +166,10 @@
         <option value="$PROJECT_DIR$/lab1/urls.py" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/script.js" />
         <option value="$PROJECT_DIR$/lab1/templates/lab1/parse_response.html" />
+        <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
+        <option value="$PROJECT_DIR$/lab1/static/lab1/styles.css" />
         <option value="$PROJECT_DIR$/lab1/views.py" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/welcome.js" />
-        <option value="$PROJECT_DIR$/lab1/static/lab1/styles.css" />
-        <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
       </list>
     </option>
   </component>
@@ -309,12 +310,12 @@
       <workItem from="1551533348618" duration="14879000" />
       <workItem from="1551572809213" duration="51456000" />
       <workItem from="1551769495555" duration="9875000" />
-      <workItem from="1551867755346" duration="3758000" />
+      <workItem from="1551867755346" duration="9673000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96322000" />
+    <option name="totallyTimeSpent" value="102237000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -411,10 +412,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="359" column="18" selection-start-line="359" selection-start-column="18" selection-end-line="359" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lab1/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+        <state relative-caret-position="450">
+          <caret line="30" column="27" lean-forward="true" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -423,8 +438,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="454" column="38" selection-start-line="454" selection-start-column="38" selection-end-line="454" selection-end-column="38" />
+        <state relative-caret-position="360">
+          <caret line="573" column="74" selection-start-line="573" selection-start-column="74" selection-end-line="573" selection-end-column="74" />
           <folding>
             <element signature="e#2369#10081#0" />
             <element signature="e#2782#10071#0" />
@@ -449,11 +464,11 @@
             <element signature="n#!!block;n#handleFileSelect#0" />
             <element signature="n#!!block;n#dropHandler#0" />
             <element signature="n#!!block;n#readFile#0" />
-            <element signature="n#!!block;n#parse#0" />
             <element signature="e#29503#29599#0" />
             <element signature="e#29652#29754#0" />
             <element signature="n#!!block;n#dragOverHandler#0" />
             <element signature="n#!!block;n#getRndInteger#0" />
+            <element signature="n#!!block;n#getPosition#0" />
             <element signature="n#!!block;n#reflow#0" />
             <element signature="n#!!block;n#animate#0" />
             <element signature="n#!!block;n#linear#0" />
@@ -461,20 +476,6 @@
             <element signature="n#!!block;n#easeInOut#0" />
             <element signature="e#30860#30862#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="352" column="10" selection-start-line="352" selection-start-column="10" selection-end-line="352" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="32" column="64" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
         </state>
       </provider>
     </entry>
