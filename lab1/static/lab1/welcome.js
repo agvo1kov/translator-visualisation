@@ -454,7 +454,14 @@ class Code {
                                 that.hideSelection();
                                 $321Node.style.display = 'none';
                                 that.moveCursor(0, 0, function() {
-                                    that.parse();
+                                    that.parse(false, false, function () {
+                                        that.moveCursor(((window.innerWidth - window.innerWidth * 0.14) / 2 / that.cornerstone.width) - 6, 0, function () {
+                                            let $finalNode = that.appendNode('TTFN', ((window.innerWidth - window.innerWidth * 0.14) / 2 / that.cornerstone.width) - 6, 0, function () {
+                                                that.$cursor.classList.add('non-animation');
+                                                that.$cursor.style.opacity = '0';
+                                            });
+                                        });
+                                    });
                                 });
                             }, 300)
                         })
@@ -696,6 +703,11 @@ class Code {
         $newNode.style.left = x * this.cornerstone.width + 'px';
         $newNode.style.width = '0';
         $newNode.style.transitionDuration = '0.1s';
+
+        // if (text === ';)') {
+        //     $newNode.style.fontFamily = '-apple-system, arial';
+        //     $newNode.style.overflow = 'visible';
+        // }
 
         $programWrapper.appendChild($newNode);
         reflow($newNode);
@@ -1024,7 +1036,7 @@ function parse(code) {
 
     xhr.onreadystatechange = function() {
         if (this.readyState !== 4) return;
-        
+
         let chain = JSON.parse(this.responseText);
 
         sessionStorage.removeItem('chain');
