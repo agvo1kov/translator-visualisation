@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adc5ed42-fb85-4bce-acfc-5714d3af9994" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab1/static/lab1/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="609" column="142" selection-start-line="609" selection-start-column="142" selection-end-line="609" selection-end-column="142" />
+            <state relative-caret-position="453">
+              <caret line="619" column="141" selection-start-line="619" selection-start-column="141" selection-end-line="619" selection-end-column="141" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#Code#0" />
                 <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
@@ -111,6 +108,7 @@
       <find>text-cursor-flecker</find>
       <find>anim</find>
       <find>$identifiersTable</find>
+      <find>animat</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -274,12 +272,12 @@
       <workItem from="1551533348618" duration="14879000" />
       <workItem from="1551572809213" duration="51456000" />
       <workItem from="1551769495555" duration="9875000" />
-      <workItem from="1551867755346" duration="12071000" />
+      <workItem from="1551867755346" duration="16360000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104635000" />
+    <option name="totallyTimeSpent" value="108924000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -408,8 +406,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="609" column="142" selection-start-line="609" selection-start-column="142" selection-end-line="609" selection-end-column="142" />
+        <state relative-caret-position="453">
+          <caret line="619" column="141" selection-start-line="619" selection-start-column="141" selection-end-line="619" selection-end-column="141" />
           <folding>
             <element signature="n#!!block;n#constructor#0;n#Code#0" />
             <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
