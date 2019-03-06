@@ -157,7 +157,7 @@ body.is-drag-over {
     position: absolute;
 
     /*top: 85vh; */
-    left: 10vw;
+    left: 14vw;
 
     /*transition-duration: 1s;*/
     /*transition-timing-function: ease-in-out;*/
@@ -235,8 +235,8 @@ body.is-drag-over {
     position: absolute;
     display: none;
 
-    top: 0pt;
-    left: 0pt;
+    top: 0;
+    left: 0;
 
     width: 2pt;
     height: 32pt;
@@ -297,3 +297,63 @@ body.is-drag-over {
 
     height: 32pt;
 }
+
+.tables-wrapper {
+    position: absolute;
+
+    top: -10vw;
+    left: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    /*background: black;*/
+}
+
+    .table {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        opacity: 0;
+
+        display: flex;
+    }
+
+        .table > .item {
+            display: flex;
+
+            margin-right: 70pt;
+        }
+
+        .table > .item > * {
+            font-family: monospace;
+            font-size: 32pt;
+        }
+
+        .table > .item > .token {
+            transition: none;
+            margin-left: 20pt;
+        }
+
+        .table > .item:not(.current) > * {
+            font-weight: 100;
+            color: grey;
+        }
+
+.chain-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    position: absolute;
+
+    top: 6pt;
+    left: 3pt;
+}
+
+    .chain-wrapper > .token {
+        margin-left: 15pt;
+    }

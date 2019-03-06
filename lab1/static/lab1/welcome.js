@@ -5,8 +5,8 @@ let $wrapper = document.getElementById('wrapper'),
     $fileInput = document.getElementById('file-input'),
     $cornerstone = document.getElementById('cornerstone'),
     $programWrapper = document.getElementById('program-wrapper'),
-    $tokensWrapper = document.getElementById('tokens-wrapper');
-
+    $tokensWrapper = document.getElementById('tokens-wrapper'),
+    $tablesWrapper = document.getElementById('tables-wrapper');
 
 class Code {
 
@@ -62,6 +62,14 @@ class Code {
 
         this.$plug = $cornerstone.cloneNode(true);
         this.$plug.innerHTML = '&nbsp;';
+
+        // this.$tables = [];
+        this.$table = document.createElement('div');
+        this.$table.className = 'table';
+
+        this.$serviceWordsTable = null;
+
+        $tablesWrapper.style.top = '-' + 3 * this.cornerstone.height + 'px';
     }
 
     renderTokens() {
@@ -256,6 +264,37 @@ class Code {
 
         $programWrapper.appendChild(this.$selectionWrapper);
         reflow(this.$selectionWrapper);
+
+    //    Render tables
+        if ('service_words' in this.tables) {
+
+            const $serviceWordsTable = this.$table.cloneNode();
+            for (let i = 0; i < this.tables.service_words.length; i++) {
+                const $code = document.createElement('div');
+                $code.className = 'code service-word';
+                $code.setAttribute('id', this.tables.service_words[i] + '-code');
+                $code.innerText = 'W' + i;
+
+                const $token = document.createElement('div');
+                $token.className = 'token service-word';
+                $token.setAttribute('id', this.tables.service_words[i] + '-token');
+                $token.innerText = this.tables.service_words[i];
+
+                const $newItem = document.createElement('div');
+                $newItem.className = 'item';
+                $newItem.setAttribute('id', this.tables.service_words[i] + '-item');
+                $newItem.appendChild($code);
+                $newItem.appendChild($token);
+
+                $serviceWordsTable.appendChild($newItem);
+            }
+            this.$serviceWordsTable = $serviceWordsTable;
+            // this.$tables.push({
+            //     type: 'service_words',
+            //     table: this.$serviceWordsTable
+            // });
+            $tablesWrapper.appendChild(this.$serviceWordsTable);
+        }
     }
 
     programOnset(lineIndex) {
@@ -330,16 +369,14 @@ class Code {
                             if (nextToken().className.includes('break-line')) {
                                 delay = {min: 0, max: 0}
                             }
-                        }
+                        } // delay before line up
 
                         that.moveCursor(0, -2, function() {
                             that.pasteToken(token, 0, -2, function() {
                                 setTimeout(function() {
                                     that.hideSelection(false);
-                                    that.moveCursor(0, 0, function() {
-                                        // parseNext(delay)
-                                        console.log(that.tables);
-                                    });
+                                    that.moveCursor(0, 0);
+                                    that.hitTableFor(that.$serviceWordsTable, token);
                                 }, getRndInteger(80, 120));
                             })
                         })
@@ -398,6 +435,33 @@ class Code {
     }
 
     // practical methods
+
+    hitTableFor($table, $token, $callback) {
+        const that = this;
+        const duration = 150;
+        document.getElementById($token.innerHTML + '-item').classList.add('current');
+        $table.style.transition = 'all ' + duration + 'ms ease-in-out';
+        $table.style.opacity = '1';
+        $table.style.left = -document.getElementById($token.innerHTML + '-token').offsetLeft + 'px';
+        console.log(document.getElementById($token.innerHTML + '-token'));
+
+        setTimeout(function() {
+            $table.style.transition = 'all ' + (duration * 0.7) + 'ms ease-in';
+            $table.style.top = that.cornerstone.height + 'px';
+
+            setTimeout(function() {
+                const $tokenCode = document.getElementById($token.innerHTML + '-item');
+                // console.log($tokenCode.offsetLeft);
+                console.log(that.chain);
+
+                $table.style.transition = 'all 100ms ease-in';
+                $table.style.opacity = '0';
+
+                $token.style.transition = 'all 100ms ease-in';
+                $token.style.opacity = '0';
+            }, 2 * duration);
+        }, 2 * duration);
+    }
 
     hideToken(token, callback) {
         const duration = 100;

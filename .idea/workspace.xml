@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="adc5ed42-fb85-4bce-acfc-5714d3af9994" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/static/lab1/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/templates/lab1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/templates/lab1/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,26 +30,27 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
+            <state relative-caret-position="390">
+              <caret line="32" column="64" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="340" column="63" selection-start-line="340" selection-start-column="63" selection-end-line="340" selection-end-column="63" />
+            <state relative-caret-position="380">
+              <caret line="454" column="38" selection-start-line="454" selection-start-column="38" selection-end-line="454" selection-end-column="38" />
               <folding>
-                <element signature="n#!!block;n#constructor#0;n#Code#0" />
-                <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
+                <element signature="e#2369#10081#0" />
+                <element signature="e#2782#10071#0" />
                 <element signature="n#!!block;n#programOnset#0;n#Code#0" />
                 <element signature="n#!!block;n#skipProgramOnset#0;n#Code#0" />
-                <element signature="e#13545#13906#0" />
+                <element signature="e#15306#15703#0" />
+                <element signature="e#15719#15952#0" />
                 <element signature="n#!!block;n#parseNext#0;n#!!block;n#parse#0;n#Code#0" />
                 <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
                 <element signature="n#!!block;n#hideToken#0;n#Code#0" />
@@ -59,23 +62,23 @@
                 <element signature="n#!!block;n#hideSelection#0;n#Code#0" />
                 <element signature="n#!!block;n#setCursor#0;n#Code#0" />
                 <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
-                <element signature="e#21289#21573#0" />
                 <element signature="n#!!block;n#welcomeDepart#0" />
-                <element signature="e#22378#22429#0" />
-                <element signature="e#22482#22533#0" />
+                <element signature="e#26899#26950#0" />
+                <element signature="e#27003#27054#0" />
+                <element signature="n#!!block;n#handleFileSelect#0" />
                 <element signature="n#!!block;n#dropHandler#0" />
                 <element signature="n#!!block;n#readFile#0" />
                 <element signature="n#!!block;n#parse#0" />
-                <element signature="e#24982#25078#0" />
-                <element signature="e#25131#25233#0" />
+                <element signature="e#29503#29599#0" />
+                <element signature="e#29652#29754#0" />
                 <element signature="n#!!block;n#dragOverHandler#0" />
                 <element signature="n#!!block;n#getRndInteger#0" />
                 <element signature="n#!!block;n#reflow#0" />
                 <element signature="n#!!block;n#animate#0" />
                 <element signature="n#!!block;n#linear#0" />
-                <element signature="e#25969#26000#0" />
+                <element signature="e#30490#30521#0" />
                 <element signature="n#!!block;n#easeInOut#0" />
-                <element signature="e#26339#26341#0" />
+                <element signature="e#30860#30862#0" />
               </folding>
             </state>
           </provider>
@@ -84,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="246" lean-forward="true" selection-start-line="246" selection-end-line="246" />
+            <state relative-caret-position="591">
+              <caret line="352" column="10" selection-start-line="352" selection-start-column="10" selection-end-line="352" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -93,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7860">
-              <caret line="527" column="42" selection-start-line="527" selection-start-column="42" selection-end-line="527" selection-end-column="42" />
+            <state relative-caret-position="222">
+              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -142,6 +145,7 @@
       <find>ease</find>
       <find>wrap</find>
       <find>text-cursor-flecker</find>
+      <find>anim</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -162,9 +166,9 @@
         <option value="$PROJECT_DIR$/lab1/static/lab1/script.js" />
         <option value="$PROJECT_DIR$/lab1/templates/lab1/parse_response.html" />
         <option value="$PROJECT_DIR$/lab1/views.py" />
-        <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
-        <option value="$PROJECT_DIR$/lab1/static/lab1/styles.css" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/welcome.js" />
+        <option value="$PROJECT_DIR$/lab1/static/lab1/styles.css" />
+        <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
       </list>
     </option>
   </component>
@@ -179,6 +183,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -232,7 +237,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -304,12 +308,13 @@
       <workItem from="1551443617761" duration="16354000" />
       <workItem from="1551533348618" duration="14879000" />
       <workItem from="1551572809213" duration="51456000" />
-      <workItem from="1551769495555" duration="5640000" />
+      <workItem from="1551769495555" duration="9875000" />
+      <workItem from="1551867755346" duration="3758000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88329000" />
+    <option name="totallyTimeSpent" value="96322000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -324,7 +329,7 @@
     <frame x="0" y="23" width="1440" height="799" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26037195" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20171674" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -392,23 +397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7860">
-          <caret line="527" column="42" selection-start-line="527" selection-start-column="42" selection-end-line="527" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -423,23 +411,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
+    <entry file="file://$PROJECT_DIR$/lab1/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="246" lean-forward="true" selection-start-line="246" selection-end-line="246" />
+        <state relative-caret-position="222">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="340" column="63" selection-start-line="340" selection-start-column="63" selection-end-line="340" selection-end-column="63" />
+        <state relative-caret-position="380">
+          <caret line="454" column="38" selection-start-line="454" selection-start-column="38" selection-end-line="454" selection-end-column="38" />
           <folding>
-            <element signature="n#!!block;n#constructor#0;n#Code#0" />
-            <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
+            <element signature="e#2369#10081#0" />
+            <element signature="e#2782#10071#0" />
             <element signature="n#!!block;n#programOnset#0;n#Code#0" />
             <element signature="n#!!block;n#skipProgramOnset#0;n#Code#0" />
-            <element signature="e#13545#13906#0" />
+            <element signature="e#15306#15703#0" />
+            <element signature="e#15719#15952#0" />
             <element signature="n#!!block;n#parseNext#0;n#!!block;n#parse#0;n#Code#0" />
             <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
             <element signature="n#!!block;n#hideToken#0;n#Code#0" />
@@ -451,24 +443,38 @@
             <element signature="n#!!block;n#hideSelection#0;n#Code#0" />
             <element signature="n#!!block;n#setCursor#0;n#Code#0" />
             <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
-            <element signature="e#21289#21573#0" />
             <element signature="n#!!block;n#welcomeDepart#0" />
-            <element signature="e#22378#22429#0" />
-            <element signature="e#22482#22533#0" />
+            <element signature="e#26899#26950#0" />
+            <element signature="e#27003#27054#0" />
+            <element signature="n#!!block;n#handleFileSelect#0" />
             <element signature="n#!!block;n#dropHandler#0" />
             <element signature="n#!!block;n#readFile#0" />
             <element signature="n#!!block;n#parse#0" />
-            <element signature="e#24982#25078#0" />
-            <element signature="e#25131#25233#0" />
+            <element signature="e#29503#29599#0" />
+            <element signature="e#29652#29754#0" />
             <element signature="n#!!block;n#dragOverHandler#0" />
             <element signature="n#!!block;n#getRndInteger#0" />
             <element signature="n#!!block;n#reflow#0" />
             <element signature="n#!!block;n#animate#0" />
             <element signature="n#!!block;n#linear#0" />
-            <element signature="e#25969#26000#0" />
+            <element signature="e#30490#30521#0" />
             <element signature="n#!!block;n#easeInOut#0" />
-            <element signature="e#26339#26341#0" />
+            <element signature="e#30860#30862#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="352" column="10" selection-start-line="352" selection-start-column="10" selection-end-line="352" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="32" column="64" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
         </state>
       </provider>
     </entry>
