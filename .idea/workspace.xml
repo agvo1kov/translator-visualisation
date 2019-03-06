@@ -39,16 +39,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="619" column="141" selection-start-line="619" selection-start-column="141" selection-end-line="619" selection-end-column="141" />
+            <state relative-caret-position="193">
+              <caret line="1026" column="8" selection-start-line="1026" selection-start-column="8" selection-end-line="1026" selection-end-column="8" />
               <folding>
-                <element signature="n#!!block;n#constructor#0;n#Code#0" />
-                <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
-                <element signature="n#!!block;n#programOnset#0;n#Code#0" />
+                <element signature="e#2741#10453#0" />
                 <element signature="n#!!block;n#skipProgramOnset#0;n#Code#0" />
                 <element signature="n#!!block;n#parse#0;n#Code#0" />
                 <element signature="n#!!block;n#parseNext#0;n#!!block;n#parse#0;n#Code#0" />
                 <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+                <element signature="n#!!block;n#hitTableFor#0;n#Code#0" />
                 <element signature="n#!!block;n#hideToken#0;n#Code#0" />
                 <element signature="n#!!block;n#appendNode#0;n#Code#0" />
                 <element signature="n#!!block;n#pasteToken#0;n#Code#0" />
@@ -58,11 +57,13 @@
                 <element signature="n#!!block;n#hideSelection#0;n#Code#0" />
                 <element signature="n#!!block;n#setCursor#0;n#Code#0" />
                 <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
+                <element signature="e#36587#36636#0" />
                 <element signature="n#!!block;n#welcomeDepart#0" />
+                <element signature="e#37071#37122#0" />
+                <element signature="e#37175#37226#0" />
                 <element signature="n#!!block;n#handleFileSelect#0" />
                 <element signature="n#!!block;n#dropHandler#0" />
                 <element signature="n#!!block;n#readFile#0" />
-                <element signature="n#!!block;n#parse#0" />
                 <element signature="n#!!block;n#dragOverHandler#0" />
                 <element signature="n#!!block;n#getRndInteger#0" />
                 <element signature="n#!!block;n#getPosition#0" />
@@ -272,12 +273,12 @@
       <workItem from="1551533348618" duration="14879000" />
       <workItem from="1551572809213" duration="51456000" />
       <workItem from="1551769495555" duration="9875000" />
-      <workItem from="1551867755346" duration="16360000" />
+      <workItem from="1551867755346" duration="17694000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108924000" />
+    <option name="totallyTimeSpent" value="110258000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -406,16 +407,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="619" column="141" selection-start-line="619" selection-start-column="141" selection-end-line="619" selection-end-column="141" />
+        <state relative-caret-position="193">
+          <caret line="1026" column="8" selection-start-line="1026" selection-start-column="8" selection-end-line="1026" selection-end-column="8" />
           <folding>
-            <element signature="n#!!block;n#constructor#0;n#Code#0" />
-            <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
-            <element signature="n#!!block;n#programOnset#0;n#Code#0" />
+            <element signature="e#2741#10453#0" />
             <element signature="n#!!block;n#skipProgramOnset#0;n#Code#0" />
             <element signature="n#!!block;n#parse#0;n#Code#0" />
             <element signature="n#!!block;n#parseNext#0;n#!!block;n#parse#0;n#Code#0" />
             <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+            <element signature="n#!!block;n#hitTableFor#0;n#Code#0" />
             <element signature="n#!!block;n#hideToken#0;n#Code#0" />
             <element signature="n#!!block;n#appendNode#0;n#Code#0" />
             <element signature="n#!!block;n#pasteToken#0;n#Code#0" />
@@ -425,11 +425,13 @@
             <element signature="n#!!block;n#hideSelection#0;n#Code#0" />
             <element signature="n#!!block;n#setCursor#0;n#Code#0" />
             <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
+            <element signature="e#36587#36636#0" />
             <element signature="n#!!block;n#welcomeDepart#0" />
+            <element signature="e#37071#37122#0" />
+            <element signature="e#37175#37226#0" />
             <element signature="n#!!block;n#handleFileSelect#0" />
             <element signature="n#!!block;n#dropHandler#0" />
             <element signature="n#!!block;n#readFile#0" />
-            <element signature="n#!!block;n#parse#0" />
             <element signature="n#!!block;n#dragOverHandler#0" />
             <element signature="n#!!block;n#getRndInteger#0" />
             <element signature="n#!!block;n#getPosition#0" />

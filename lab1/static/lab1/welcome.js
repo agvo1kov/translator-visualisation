@@ -31,6 +31,7 @@ class Code {
 
         this.$cursor = document.createElement('div');
         this.$cursor.className = 'text-cursor';
+        this.$cursor.setAttribute('id', 'text-editor');
         this.$cursor.style.height = this.cornerstone.height;
 
         this.selection = {
@@ -263,6 +264,14 @@ class Code {
         }
 
         console.log(this.tokens);
+
+        if (document.contains(document.getElementById("text-cursor"))) {
+            $programWrapper.removeChild(this.$cursor);
+            $programWrapper.removeChild(this.$selectionWrapper);
+        }
+
+        $chainWrapper.innerHTML = '';
+        $tablesWrapper.innerHTML = '';
 
         $programWrapper.style.top = (100 - (3.6 * this.cornerstone.height / window.innerHeight) * 100) + 'vh';
         $programWrapper.appendChild(this.$cursor);
@@ -588,6 +597,7 @@ class Code {
         $table.style.opacity = '1';
         $table.style.left = -document.getElementById(tokenText + '-token').offsetLeft + 'px';
         console.log(document.getElementById(tokenText + '-token'));
+        const hitDuration = coef * duration < 100 ? 100 : coef * duration;
 
         setTimeout(function() {
             const $tokenCode = document.getElementById(tokenText + '-code');
@@ -605,28 +615,28 @@ class Code {
 
             $appropriateUnit.offsetHeight;
 
-            $appropriateUnit.style.transition = 'all ' + (coef * duration + 30) + 'ms ease-in';
+            $appropriateUnit.style.transition = 'all ' + hitDuration + 'ms ease-in';
             $appropriateUnit.style.transform = 'translate(' + xDist + 'px, ' + (yDist + that.cornerstone.height) + 'px)'; // scale(1.5238095238095237)';
 
             $appropriateUnit.offsetHeight;
 
-            $table.style.transition = 'all ' + (coef * duration + 30) + 'ms ease-in';
+            $table.style.transition = 'all ' + hitDuration + 'ms ease-in';
             $table.style.top = that.cornerstone.height + 'px';
 
-            const hitDuration = 500;
+            const codeDuration = 500;
             setTimeout(function() {
-                $appropriateUnit.style.transition = 'all ' + hitDuration + 'ms';
+                $appropriateUnit.style.transition = 'all ' + codeDuration + 'ms';
                 $appropriateUnit.style.transitionTimingFunction = 'ease-out';
-                $appropriateUnit.style.transform = 'translate(' + (xDist - 40) + 'px, ' + (yDist + (1 - coef) * that.cornerstone.height * 4.5) + 'px) scale(1.5) rotate(' + -(1 - coef) * 100 + 'deg)';
+                $appropriateUnit.style.transform = 'translate(' + (xDist - 40) + 'px, ' + (yDist + (1 - coef) * that.cornerstone.height * 4) + 'px) scale(1.5) rotate(' + -(1 - coef) * 100 + 'deg)';
 
                 $appropriateUnit.offsetHeight;
 
                 setTimeout(function() {
-                    $appropriateUnit.style.transition = 'all ' + hitDuration + 'ms';
+                    $appropriateUnit.style.transition = 'all ' + codeDuration + 'ms';
                     $appropriateUnit.style.transitionTimingFunction = 'ease-out';
                     $appropriateUnit.style.transform = 'scale(0.7)';
-                }, hitDuration);
-            }, coef * duration + 30);
+                }, codeDuration);
+            }, hitDuration);
 
             setTimeout(function() {
                 $table.style.transition = 'all 100ms ease-in';
@@ -897,25 +907,26 @@ class Code {
     }
 }
 
-let code;
+// let code;
 
-if (sessionStorage.getItem('chain') != null) {
-
-    code = new Code(
-        JSON.parse(sessionStorage.getItem('chain')),
-        JSON.parse(sessionStorage.getItem('tables'))
-    );
-    code.renderTokens();
-    code.skipProgramOnset();
-    code.setCursor(0, 0);
-
-    setTimeout(function() {
-        code.parse();
-    }, 1000);
-
-} else {
-    $welcomeWrapper.classList.remove('hide');
-}
+$welcomeWrapper.classList.remove('hide');
+// if (sessionStorage.getItem('chain') != null) {
+//
+//     code = new Code(
+//         JSON.parse(sessionStorage.getItem('chain')),
+//         JSON.parse(sessionStorage.getItem('tables'))
+//     );
+//     code.renderTokens();
+//     code.skipProgramOnset();
+//     code.setCursor(0, 0);
+//
+//     setTimeout(function() {
+//         code.parse();
+//     }, 1000);
+//
+// } else {
+//     $welcomeWrapper.classList.remove('hide');
+// }
 
 function welcomeDepart() {
     let words = document.getElementsByClassName('welcome-word');
@@ -1013,7 +1024,7 @@ function parse(code) {
 
     xhr.onreadystatechange = function() {
         if (this.readyState !== 4) return;
-
+        
         let chain = JSON.parse(this.responseText);
 
         sessionStorage.removeItem('chain');
