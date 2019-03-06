@@ -24,6 +24,9 @@ def parse(request):
     global constants
     global identifiers
 
+    identifiers = []
+    constants = []
+
     code = request.POST.get('code')
     chain = to_token_analyze(code)
     data = {

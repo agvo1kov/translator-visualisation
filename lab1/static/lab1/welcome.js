@@ -11,7 +11,7 @@ let $wrapper = document.getElementById('wrapper'),
 
 class Code {
 
-    // action methonds
+    // action methods
     constructor(chain, tables) {
         this.chain = chain;
         this.tables = tables;
@@ -264,7 +264,7 @@ class Code {
 
         console.log(this.tokens);
 
-        $programWrapper.style.top = (100 - (1.6 * this.cornerstone.height / window.innerHeight) * 100) + 'vh';
+        $programWrapper.style.top = (100 - (3.6 * this.cornerstone.height / window.innerHeight) * 100) + 'vh';
         $programWrapper.appendChild(this.$cursor);
         reflow(this.$cursor);
 
@@ -568,7 +568,7 @@ class Code {
 
     hitTableFor($table, $token, callback) {
         const that = this;
-        const duration = 150;
+        const duration = 300;
         let tokenText = $token.innerText;
         if ($token.classList.contains('string')) {
             tokenText = tokenText.replace(' ', '_').substr(1).slice(0, -1);
@@ -581,21 +581,43 @@ class Code {
         console.log(document.getElementById(tokenText + '-token'));
 
         setTimeout(function() {
-            $table.style.transition = 'all ' + (duration * 0.7) + 'ms ease-in';
+            const $tokenCode = document.getElementById(tokenText + '-code');
+            const $appropriateUnit = document.getElementById('unit-number-' + that.currentTokenNumber);
+            const tokenCodePos = getPosition($tokenCode);
+            const appropriateUnitPos = getPosition($appropriateUnit);
+            const xDist = tokenCodePos.x - appropriateUnitPos.x;
+            const yDist = tokenCodePos.y - appropriateUnitPos.y;
+
+            $appropriateUnit.style.transition = 'none';
+            $appropriateUnit.style.transform = 'translate(' + xDist + 'px, ' + yDist + 'px)'; // scale(1.5238095238095237)';
+            $appropriateUnit.style.opacity = '1';
+            $tokenCode.style.transition = 'none';
+            $tokenCode.style.opacity = '0';
+
+            $appropriateUnit.offsetHeight;
+
+            $appropriateUnit.style.transition = 'all ' + (duration) + 'ms ease-in';
+            $appropriateUnit.style.transform = 'translate(' + xDist + 'px, ' + (yDist + that.cornerstone.height) + 'px)'; // scale(1.5238095238095237)';
+
+            $appropriateUnit.offsetHeight;
+
+            $table.style.transition = 'all ' + (duration) + 'ms ease-in';
             $table.style.top = that.cornerstone.height + 'px';
 
             setTimeout(function() {
-                const $tokenCode = document.getElementById(tokenText + '-item');
-                const $appropriateUnit = document.getElementById('unit-number-' + that.currentTokenNumber);
-                const tokenCodePos = getPosition($tokenCode);
-                const appropriateUnitPos = getPosition($appropriateUnit);
-                const xDist = tokenCodePos.x - appropriateUnitPos.x;
-                const yDist = tokenCodePos.y - appropriateUnitPos.y;
+                $appropriateUnit.style.transition = 'all 4000ms';
+                $appropriateUnit.style.transitionTimingFunction = 'cubic-bezier(0.075, 0.82, 0.165, 1)';
+                $appropriateUnit.style.transform = 'translate(' + xDist + 'px, ' + (yDist + 200) + 'px) scale(1.5) rotate(' + getRndInteger(-30, 30) + 'deg)';
 
-                $appropriateUnit.style.transition = 'none';
-                $appropriateUnit.style.transform = 'translate(' + (xDist + 8) + 'px, ' + (yDist + 8) + 'px) scale(1.5238095238095237)';
-                $appropriateUnit.style.opacity = '1';
+                $appropriateUnit.offsetHeight;
 
+                setTimeout(function() {
+                    $appropriateUnit.style.transition = 'all 2000ms ease-in-out';
+                    $appropriateUnit.style.transform = 'scale(0.7)';
+                }, 4000);
+            }, duration);
+
+            setTimeout(function() {
                 $table.style.transition = 'all 100ms ease-in';
                 $table.style.opacity = '0';
 
@@ -603,9 +625,8 @@ class Code {
                 $token.style.opacity = '0';
 
                 setTimeout(function() {
-                    $appropriateUnit.style.transition = 'all 1000ms ease-in-out';
-                    $appropriateUnit.style.transform = 'none';
                     $table.style.top = '0';
+                    $tokenCode.style.opacity = '1';
                     document.getElementById($token.innerHTML + '-item').classList.remove('current');
                 }, 100);
 

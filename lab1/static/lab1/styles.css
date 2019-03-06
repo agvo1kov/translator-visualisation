@@ -356,6 +356,6 @@ body.is-drag-over {
 
     .chain-wrapper > .token {
         margin-left: 10pt;
-        font-size: 21pt;
+        /*font-size: 21pt;*/
         opacity: 0;
     }
