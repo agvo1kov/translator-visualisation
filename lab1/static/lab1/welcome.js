@@ -20,7 +20,7 @@ class Code {
             y: 0
         };
 
-        this.lineOffset = 7;
+        this.lineOffset = 4;
         this.topOffset = 0;
 
         this.tokens = [[]];
@@ -145,7 +145,7 @@ class Code {
                     }
                 }
 
-                console.log(this.chain[i][2], this.chain[i][3], indent, numberOfLine);
+                // console.log(this.chain[i][2], this.chain[i][3], indent, numberOfLine);
 
                 $tokensWrapper.appendChild($newToken);
 
@@ -444,7 +444,7 @@ class Code {
                 that.programOnset(lineIndex - 1);
             }, 380);
         } else {
-            console.log(this.tokens);
+            // console.log(this.tokens);
             setTimeout(function() {
                 that.setCursor(0, -7);
                 setTimeout(function() {
@@ -455,8 +455,8 @@ class Code {
                                 $321Node.style.display = 'none';
                                 that.moveCursor(0, 0, function() {
                                     that.parse(false, false, function () {
-                                        that.moveCursor(((window.innerWidth - window.innerWidth * 0.14) / 2 / that.cornerstone.width) - 6, 0, function () {
-                                            let $finalNode = that.appendNode('TTFN', ((window.innerWidth - window.innerWidth * 0.14) / 2 / that.cornerstone.width) - 6, 0, function () {
+                                        that.moveCursor(((window.innerWidth - window.innerWidth * 0.14) / 2 / that.cornerstone.width) - 7, 0, function () {
+                                            let $finalNode = that.appendNode('TTFN', ((window.innerWidth - window.innerWidth * 0.14) / 2 / that.cornerstone.width) - 7, 0, function () {
                                                 that.$cursor.classList.add('non-animation');
                                                 that.$cursor.style.opacity = '0';
                                             });
@@ -486,7 +486,7 @@ class Code {
         tokenIndex = tokenIndex ? tokenIndex : 0;
 
         const token = this.tokens[lineIndex][tokenIndex];
-        console.log(token);
+        // console.log(token);
         if (!token.classList.contains('break-line')) {
             if (!token.classList.contains('space') && !token.classList.contains('indent')) {
                 this.setSelectionByOne(0, 0, token.innerText.length, true, function () {
@@ -508,7 +508,7 @@ class Code {
                                     that.moveCursor(0, 0);
 
                                     let table = that.$serviceWordsTable;
-                                    console.log('CLASS', token.classList);
+                                    // console.log('CLASS', token.classList);
                                     if (token.classList.contains('identifier')) {
                                         table = that.$identifiersTable;
                                     }
@@ -545,7 +545,7 @@ class Code {
                 });
             }
         } else {
-            console.log('line up');
+            // console.log('line up');
 
             this.topOffset -= this.cornerstone.height;
             $tokensWrapper.style.transform = 'translateY(' + that.topOffset + 'px)';
@@ -555,16 +555,18 @@ class Code {
 
         function parseNext(delay) {
             setTimeout(function() {
+                console.log(tokenIndex + 1, '>=', that.tokens[lineIndex].length, '&&', lineIndex + 1, '>=', that.tokens.length, '&& functuion ===', typeof callback);
                 if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
                     if (lineIndex + 1 >= that.tokens.length) {
                         if (typeof callback === 'function') {
+                            console.log('FINAL!');
                             callback();
                         }
                     } else {
-                        that.parse(lineIndex + 1, 0);
+                        that.parse(lineIndex + 1, 0, callback);
                     }
                 } else {
-                    that.parse(lineIndex, tokenIndex + 1);
+                    that.parse(lineIndex, tokenIndex + 1, callback);
                 }
             }, getRndInteger(delay.min, delay.max));
         }
@@ -598,12 +600,10 @@ class Code {
         if ($token.classList.contains('string')) {
             tokenText = tokenText.replace(' ', '_').substr(1).slice(0, -1);
         }
-        console.log('XLASS', tokenText);
         document.getElementById(tokenText + '-item').classList.add('current');
         $table.style.transition = 'all ' + duration + 'ms ease-in-out';
         $table.style.opacity = '1';
         $table.style.left = -document.getElementById(tokenText + '-token').offsetLeft + 'px';
-        console.log(document.getElementById(tokenText + '-token'));
         const hitDuration = coef * duration < 100 ? 100 : coef * duration;
 
         setTimeout(function() {
@@ -634,7 +634,7 @@ class Code {
             setTimeout(function() {
                 $appropriateUnit.style.transition = 'all ' + codeDuration + 'ms';
                 $appropriateUnit.style.transitionTimingFunction = 'ease-out';
-                $appropriateUnit.style.transform = 'translate(' + (xDist - 40) + 'px, ' + (yDist + (1 - coef) * that.cornerstone.height * 4) + 'px) scale(1.5) rotate(' + -(1 - coef) * 100 + 'deg)';
+                $appropriateUnit.style.transform = 'translate(' + (xDist - 40) + 'px, ' + (yDist + (1 - coef) * that.cornerstone.height * 3.5) + 'px) scale(1.5) rotate(' + -(1 - coef) * 100 + 'deg)';
 
                 $appropriateUnit.offsetHeight;
 
@@ -655,7 +655,7 @@ class Code {
                 setTimeout(function() {
                     $table.style.top = '0';
                     $tokenCode.style.opacity = '1';
-                    document.getElementById($token.innerHTML + '-item').classList.remove('current');
+                    document.getElementById(tokenText + '-item').classList.remove('current');
                 }, 100);
 
                 if (typeof callback === 'function') {
@@ -756,7 +756,7 @@ class Code {
         token.style.opacity = '1';
         token.offsetHeight;
 
-        console.log(tokenDefaultWidth);
+        // console.log(tokenDefaultWidth);
 
         // this.setCursor(x + token.innerHTML.length, y);
         // this.setSelection(x, y, token.innerHTML.length, true);
@@ -788,7 +788,7 @@ class Code {
     }
 
     setSelection(x, y, width, leftToRight, callback) {
-        console.log('setSelection', x, y, width, leftToRight);
+        // console.log('setSelection', x, y, width, leftToRight);
         let duration = 100;
         this.$selection.style.transitionDuration = duration / 1000 + 's';
 
@@ -1039,8 +1039,8 @@ function parse(code) {
 
         let chain = JSON.parse(this.responseText);
 
-        sessionStorage.removeItem('chain');
-        sessionStorage.removeItem('tables');
+        // sessionStorage.removeItem('chain');
+        // sessionStorage.removeItem('tables');
 
         sessionStorage.setItem('chain', JSON.stringify(chain.chain));
         sessionStorage.setItem('tables', JSON.stringify(chain.tables));
