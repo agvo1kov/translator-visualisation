@@ -50,8 +50,8 @@ body.is-drag-over {
 .wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: start;
 
     position: absolute;
     left: 0;
@@ -349,10 +349,10 @@ body.is-drag-over {
     flex-direction: row;
     flex-wrap: wrap;
 
-    position: absolute;
+    /*position: absolute;*/
 
-    top: 6pt;
-    left: 3pt;
+    /*top: 6pt;*/
+    /*left: 3pt;*/
 }
 
     .chain-wrapper > .token {
@@ -360,6 +360,16 @@ body.is-drag-over {
         /*font-size: 21pt;*/
         opacity: 0;
     }
+
+.rpn-wrapper {
+    transition: all 300ms ease-in-out;
+    opacity: 0;
+    font-family: monospace;
+    font-size: 22pt;
+
+    padding: 30pt 15pt;
+}
+
 
 .skip {
     transition: all 100ms ease-in-out;

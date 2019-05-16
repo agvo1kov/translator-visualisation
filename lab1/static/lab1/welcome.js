@@ -9,13 +9,15 @@ const $wrapper = document.getElementById('wrapper'),
     $tablesWrapper = document.getElementById('tables-wrapper'),
     $chainWrapper = document.getElementById('chain-wrapper'),
     $skipBtn = document.getElementById('skip-btn'),
-    $mistakePopup = document.getElementById('mistake-popup');
+    $mistakePopup = document.getElementById('mistake-popup'),
+    $rpnWrapper = document.getElementById('rpn-wrapper');
 
 class Code {
 
     // action methods
-    constructor(chain, tables, mistakes) {
-        this.mistakes = mistakes
+    constructor(chain, tables, mistakes, rpn) {
+        this.mistakes = mistakes;
+        this.rpn = rpn;
         this.skip = false;
         this.chain = chain;
         this.tables = tables;
@@ -53,7 +55,6 @@ class Code {
         this.$selection.className = 'selection';
 
         this.$selectionWrapper.appendChild(this.$selection);
-
 
         this.$breakLine = document.createElement('div');
         this.$breakLine.className = 'break-line';
@@ -645,8 +646,11 @@ class Code {
                 $token.style.opacity = '1';
                 $token.style.display = 'inline-block';
                 $token.style.transform = 'scale(0.7)';
-            }, 50 * index);
+            }, 1);
         });
+
+        $rpnWrapper.innerText = this.rpn;
+        $rpnWrapper.style.opacity = '1';
     }
 
     // practical methods
@@ -992,7 +996,8 @@ if (sessionStorage.getItem('chain') != null) {
     code = new Code(
         chain.chain,
         chain.tables,
-        chain.mistakes
+        chain.mistakes,
+        chain.rpn,
     );
     code.renderTokens();
 
@@ -1118,21 +1123,34 @@ function parse(text) {
         code = new Code(
             chain.chain,
             chain.tables,
-            chain.mistakes
+            chain.mistakes,
+            chain.rpn,
         );
         code.renderTokens();
 
         if (chain.mistakes.length) {
             code.showMistake();
         } else {
-            code.programOnset(code.tokens.length-1);
+            code.skipProgramOnset();
+            code.setCursor(0, 0);
+
+            setTimeout(function() {
+                code.parse();
+            }, 1000);
         }
+        // code.programOnset(code.tokens.length-1);
     };
 
     xhr.send(body)
 }
 $skipBtn.addEventListener('click', () => {
     code.skip = true;
+    code.out();
+    if ($skipBtn.innerText == 'ОПЗ') {
+
+        $skipBtn.innerText = 'Basic';
+    }
+
 });
 // let chain = '{"chain": [["W", 0, "program", 1], ["I", 0, "fdadf", 1], ["R", 4, ";", 1], ["W", 1, "var", 2], ["I", 1, "a", 3], ["R", 3, ":", 3], ["W", 3, "integer", 3], ["R", 4, ";", 3], ["I", 2, "b", 4], ["R", 3, ":", 4], ["W", 4, "real", 4], ["R", 4, ";", 4], ["I", 3, "s", 5], ["R", 3, ":", 5], ["W", 5, "string", 5], ["R", 4, ";", 5], ["I", 4, "arr", 6], ["R", 3, ":", 6], ["W", 7, "array", 6], ["R", 7, "[", 6], ["C", 0, "1", 6], ["R", 2, "..", 6], ["C", 1, "10", 6], ["R", 8, "]", 6], ["W", 8, "of", 6], ["W", 3, "integer", 6], ["R", 4, ";", 6], ["W", 9, "procedure", 8], ["I", 5, "procedure_one", 8], ["R", 5, "(", 8], ["I", 6, "parametr1", 8], ["R", 3, ":", 8], ["W", 3, "integer", 8], ["R", 6, ")", 8], ["R", 4, ";", 8], ["W", 1, "var", 9], ["I", 7, "i", 9], ["R", 3, ":", 9], ["W", 3, "integer", 9], ["R", 4, ";", 9], ["W", 11, "begin", 10], ["I", 7, "i", 11], ["W", 12, ":=", 11], ["C", 2, "0", 11], ["R", 4, ";", 11], ["W", 20, "while", 12], ["I", 7, "i", 12], ["O", 5, "<", 12], ["C", 1, "10", 12], ["I", 8, "do", 12], ["I", 7, "i", 13], ["W", 12, ":=", 13], ["I", 7, "i", 13], ["O", 0, "+", 13], ["C", 0, "1", 13], ["R", 4, ";", 13], ["W", 17, "end", 14], ["R", 4, ";", 14], ["W", 10, "function", 16], ["I", 9, "fun", 16], ["R", 5, "(", 16], ["I", 10, "k1", 16], ["R", 3, ":", 16], ["W", 3, "integer", 16], ["R", 4, ";", 16], ["I", 11, "k2", 16], ["R", 3, ":", 16], ["W", 4, "real", 16], ["R", 4, ";", 16], ["I", 12, "parametr2", 16], ["R", 3, ":", 16], ["W", 5, "string", 16], ["R", 6, ")", 16], ["R", 3, ":", 16], ["W", 3, "integer", 16], ["R", 4, ";", 16], ["W", 1, "var", 17], ["I", 13, "str", 17], ["R", 3, ":", 17], ["W", 5, "string", 17], ["R", 4, ";", 17], ["W", 11, "begin", 18], ["W", 14, "if", 19], ["I", 10, "k1", 19], ["O", 6, ">", 19], ["I", 11, "k2", 19], ["W", 15, "then", 19], ["I", 13, "str", 20], ["W", 12, ":=", 20], ["C", 3, "k1 more then k2", 20], ["W", 16, "else", 21], ["I", 13, "str", 22], ["W", 12, ":=", 22], ["C", 4, "k1 less or eq k2", 22], ["R", 4, ";", 22], ["W", 19, "return", 23], ["I", 13, "str", 23], ["R", 4, ";", 23], ["W", 17, "end", 24], ["R", 4, ";", 24], ["W", 11, "begin", 26], ["I", 1, "a", 27], ["W", 12, ":=", 27], ["C", 1, "10", 27], ["R", 4, ";", 27], ["I", 2, "b", 28], ["W", 12, ":=", 28], ["C", 5, "5.25e5", 28], ["R", 4, ";", 28], ["I", 3, "s", 29], ["W", 12, ":=", 29], ["I", 9, "fun", 29], ["R", 5, "(", 29], ["I", 1, "a", 29], ["R", 1, ",", 29], ["I", 2, "b", 29], ["R", 1, ",", 29], ["I", 3, "s", 29], ["R", 6, ")", 29], ["R", 4, ";", 29], ["I", 5, "procedure_one", 30], ["R", 5, "(", 30], ["C", 1, "10", 30], ["R", 6, ")", 30], ["R", 4, ";", 30], ["W", 20, "while", 31], ["I", 1, "a", 31], ["O", 5, "<", 31], ["C", 6, "150", 31], ["I", 8, "do", 31], ["I", 1, "a", 32], ["W", 12, ":=", 32], ["I", 1, "a", 32], ["O", 2, "*", 32], ["C", 1, "10", 32], ["R", 4, ";", 32], ["I", 4, "arr", 33], ["R", 7, "[", 33], ["C", 0, "1", 33], ["R", 8, "]", 33], ["W", 12, ":=", 33], ["C", 1, "10", 33], ["R", 4, ";", 33], ["I", 4, "arr", 34], ["R", 7, "[", 34], ["C", 7, "2", 34], ["R", 8, "]", 34], ["W", 12, ":=", 34], ["C", 8, "20", 34], ["O", 2, "*", 34], ["I", 1, "a", 34], ["R", 4, ";", 34], ["W", 18, "end.", 36]], "tables": {"service_words": ["program", "var", "const", "integer", "real", "string", "label", "array", "of", "procedure", "function", "begin", ":=", "goto", "if", "then", "else", "end", "end.", "return", "while"], "operations": ["+", "-", "*", "/", "^", "<", ">", "=", "<>", "<=", ">="], "separators": [" ", ",", "..", ":", ";", "(", ")", "[", "]", "{", "}", "\'"], "constants": [{"type": "integer", "value": "1"}, {"type": "integer", "value": "10"}, {"type": "integer", "value": "0"}, {"type": "string", "value": "k1 more then k2"}, {"type": "string", "value": "k1 less or eq k2"}, {"type": "real", "value": "5.25e5"}, {"type": "integer", "value": "150"}, {"type": "integer", "value": "2"}, {"type": "integer", "value": "20"}], "identifiers": [{"type": "program", "name": "fdadf", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "integer", "name": "a", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "real", "name": "b", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "string", "name": "s", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "integer_array", "name": "arr", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "procedure", "name": "procedure_one", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "parametr1", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "integer", "name": "i", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "do", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "function", "name": "fun", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "k1", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "k2", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "parametr2", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "string", "name": "str", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}]}}';
 // sessionStorage.setItem('chain', JSON.stringify(chain.chain));
