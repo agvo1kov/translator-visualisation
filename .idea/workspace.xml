@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adc5ed42-fb85-4bce-acfc-5714d3af9994" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/parse_response.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/translator_visualization/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/translator_visualization.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/translator_visualization.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/static/lab1/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/static/lab1/welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/translator_visualization/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/translator_visualization/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,52 +25,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
+        <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lab1/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="51" column="75" selection-start-line="51" selection-start-column="75" selection-end-line="51" selection-end-column="75" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="e#2797#10512#0" />
-                <element signature="e#11201#11618#0" />
-                <element signature="e#11688#12957#0" />
-                <element signature="e#13000#14109#0" />
-                <element signature="e#14152#15261#0" />
-                <element signature="e#15305#16446#0" />
-                <element signature="e#16488#17805#0" />
-                <element signature="e#18947#19066#0" />
-                <element signature="e#20578#20754#0" />
-                <element signature="e#20799#25460#0" />
-                <element signature="e#21069#23839#0" />
-                <element signature="e#25530#29049#0" />
-                <element signature="e#29082#29899#0" />
-                <element signature="e#29938#31427#0" />
-                <element signature="e#31467#33265#0" />
-                <element signature="e#33320#34427#0" />
-                <element signature="e#34487#35071#0" />
-                <element signature="e#35131#36133#0" />
-                <element signature="e#36176#36309#0" />
-              </folding>
+            <state relative-caret-position="407">
+              <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -70,17 +36,86 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3270">
-              <caret line="218" column="22" selection-start-line="218" selection-start-column="22" selection-end-line="218" selection-end-column="22" />
+            <state relative-caret-position="538">
+              <caret line="394" column="24" selection-start-line="394" selection-start-column="24" selection-end-line="394" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="1084" column="16" selection-start-line="1084" selection-start-column="16" selection-end-line="1084" selection-end-column="16" />
+              <folding>
+                <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
+                <element signature="n#!!block;n#programOnset#0;n#Code#0" />
+                <element signature="n#!!block;n#parse#0;n#Code#0" />
+                <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+                <element signature="n#!!block;n#hitTableFor#0;n#Code#0" />
+                <element signature="n#!!block;n#hideToken#0;n#Code#0" />
+                <element signature="n#!!block;n#appendNode#0;n#Code#0" />
+                <element signature="n#!!block;n#pasteToken#0;n#Code#0" />
+                <element signature="n#!!block;n#setSelection#0;n#Code#0" />
+                <element signature="n#!!block;n#setSelectionByOne#0;n#Code#0" />
+                <element signature="n#!!block;n#changeSelectionWidthTo#0;n#Code#0" />
+                <element signature="n#!!block;n#hideSelection#0;n#Code#0" />
+                <element signature="n#!!block;n#setCursor#0;n#Code#0" />
+                <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
+                <element signature="n#!!block;n#welcomeDepart#0" />
+                <element signature="e#39882#39933#0" />
+                <element signature="e#39986#40037#0" />
+                <element signature="n#!!block;n#handleFileSelect#0" />
+                <element signature="n#!!block;n#dropHandler#0" />
+                <element signature="n#!!block;n#readFile#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/parse_response.html">
+        <entry file="file://$PROJECT_DIR$/lab1/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+            <state relative-caret-position="481">
+              <caret line="1248" column="24" lean-forward="true" selection-start-line="1248" selection-start-column="24" selection-end-line="1248" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#551#755#0" />
+                <element signature="e#776#930#0" />
+                <element signature="e#1221#1308#0" />
+                <element signature="e#1329#1990#0" />
+                <element signature="e#2009#2412#0" />
+                <element signature="e#2429#2948#0" />
+                <element signature="e#2971#3467#0" />
+                <element signature="e#3490#3778#0" />
+                <element signature="e#3800#4144#0" />
+                <element signature="e#4176#6500#0" />
+                <element signature="e#6521#8707#0" />
+                <element signature="e#8728#11040#0" />
+                <element signature="e#11062#12763#0" />
+                <element signature="e#12797#13197#0" />
+                <element signature="e#13218#13504#0" />
+                <element signature="e#13525#14372#0" />
+                <element signature="e#14388#14819#0" />
+                <element signature="e#14839#15063#0" />
+                <element signature="e#15083#16324#0" />
+                <element signature="e#17736#18822#0" />
+                <element signature="e#2511#9329#0" />
+                <element signature="e#25700#28194#0" />
+                <element signature="e#28305#28939#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/translator_visualization/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="13339">
+              <caret line="658" column="34" lean-forward="true" selection-start-line="658" selection-start-column="34" selection-end-line="658" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,10 +125,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -112,7 +147,12 @@
       <find>animat</find>
       <find>console.log</find>
       <find>Bezier</find>
+      <find>hitTableFor</find>
+      <find>currentTokenNumber</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -121,7 +161,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/lab1/migrations/urls.py" />
-        <option value="$PROJECT_DIR$/translator_visualization/urls.py" />
         <option value="$PROJECT_DIR$/lab1/index.html" />
         <option value="$PROJECT_DIR$/templates/lab1.css" />
         <option value="$PROJECT_DIR$/templates/lab1.html" />
@@ -132,16 +171,19 @@
         <option value="$PROJECT_DIR$/lab1/static/lab1/script.js" />
         <option value="$PROJECT_DIR$/lab1/templates/lab1/parse_response.html" />
         <option value="$PROJECT_DIR$/lab1/templates/lab1/index.html" />
+        <option value="$PROJECT_DIR$/translator_visualization/urls.py" />
+        <option value="$PROJECT_DIR$/translator_visualization/static/lab1/script.js" />
+        <option value="$PROJECT_DIR$/translator_visualization/views.py" />
         <option value="$PROJECT_DIR$/lab1/views.py" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/styles.css" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/lab1/static/lab1/welcome.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="799" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -165,12 +207,6 @@
               <item name="translator_visualization" type="b2602c69:ProjectViewProjectNode" />
               <item name="translator_visualization" type="462c0819:PsiDirectoryNode" />
               <item name="lab1" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="translator_visualization" type="b2602c69:ProjectViewProjectNode" />
-              <item name="translator_visualization" type="462c0819:PsiDirectoryNode" />
-              <item name="lab1" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -183,15 +219,7 @@
             <path>
               <item name="translator_visualization" type="b2602c69:ProjectViewProjectNode" />
               <item name="translator_visualization" type="462c0819:PsiDirectoryNode" />
-              <item name="lab1" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="translator_visualization" type="b2602c69:ProjectViewProjectNode" />
-              <item name="translator_visualization" type="462c0819:PsiDirectoryNode" />
-              <item name="lab1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="lab1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="translator_visualization" type="b2602c69:ProjectViewProjectNode" />
@@ -207,14 +235,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.toDoOptions" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$/translator_visualization" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/translator_visualization/templates" />
       <recent name="$PROJECT_DIR$/lab1/templates/lab1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -245,8 +282,8 @@
         <env name="DJANGO_SETTINGS_MODULE" value="translator_visualization.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -284,11 +321,31 @@
       <workItem from="1552468131118" duration="703000" />
       <workItem from="1552500900025" duration="592000" />
       <workItem from="1552571755744" duration="1172000" />
+      <workItem from="1552739913238" duration="496000" />
+      <workItem from="1553002450545" duration="184000" />
+      <workItem from="1553255379802" duration="538000" />
+      <workItem from="1553516891322" duration="1198000" />
+      <workItem from="1553536134644" duration="549000" />
+      <workItem from="1553613854788" duration="487000" />
+      <workItem from="1553676408398" duration="373000" />
+      <workItem from="1554118149457" duration="490000" />
+      <workItem from="1554214447675" duration="80000" />
+      <workItem from="1554285818012" duration="470000" />
+      <workItem from="1555000242004" duration="145000" />
+      <workItem from="1555837953276" duration="185000" />
+      <workItem from="1557171749454" duration="621000" />
+      <workItem from="1557780737351" duration="32000" />
+      <workItem from="1557781800223" duration="33000" />
+      <workItem from="1557781981620" duration="2676000" />
+      <workItem from="1557904817934" duration="4802000" />
+      <workItem from="1557994891924" duration="1384000" />
+      <workItem from="1557997711001" duration="64000" />
+      <workItem from="1557997838343" duration="7279000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119997000" />
+    <option name="totallyTimeSpent" value="142083000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -300,14 +357,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="799" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="827" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22460657" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2274678" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.19519095" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32823366" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3845209" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -316,8 +374,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32956153" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32956153" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32923833" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32923833" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -346,20 +404,21 @@
     <entry file="file://$PROJECT_DIR$/lab1/admin.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/translator_visualization/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-675">
-          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/translator_visualization/wsgi.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/translator_visualization/templates/index.html" />
     <entry file="file://$PROJECT_DIR$/translator_visualization/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="40" lean-forward="true" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
+        <state relative-caret-position="407">
+          <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
           <folding>
             <element signature="e#648#680#0" expanded="true" />
           </folding>
@@ -368,76 +427,118 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3270">
-          <caret line="218" column="22" selection-start-line="218" selection-start-column="22" selection-end-line="218" selection-end-column="22" />
+        <state>
+          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lab1/templates/lab1/parse_response.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="46">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab1/views.py">
+    <entry file="file://$PROJECT_DIR$/translator_visualization/static/lab1/welcome.js" />
+    <entry file="file://$PROJECT_DIR$/static/lab1/script.js" />
+    <entry file="file://$PROJECT_DIR$/translator_visualization/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="51" column="75" selection-start-line="51" selection-start-column="75" selection-end-line="51" selection-end-column="75" />
+        <state relative-caret-position="404">
+          <caret line="119" column="2" selection-start-line="119" selection-start-column="2" selection-end-line="119" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/translator_visualization/static/lab1/script.js" />
+    <entry file="file://$PROJECT_DIR$/templates/static/lab1/script.js" />
+    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/translator_visualization/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13339">
+          <caret line="658" column="34" lean-forward="true" selection-start-line="658" selection-start-column="34" selection-end-line="658" selection-end-column="34" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="1248" column="24" lean-forward="true" selection-start-line="1248" selection-start-column="24" selection-end-line="1248" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#551#755#0" />
+            <element signature="e#776#930#0" />
+            <element signature="e#1221#1308#0" />
+            <element signature="e#1329#1990#0" />
+            <element signature="e#2009#2412#0" />
+            <element signature="e#2429#2948#0" />
+            <element signature="e#2971#3467#0" />
+            <element signature="e#3490#3778#0" />
+            <element signature="e#3800#4144#0" />
+            <element signature="e#4176#6500#0" />
+            <element signature="e#6521#8707#0" />
+            <element signature="e#8728#11040#0" />
+            <element signature="e#11062#12763#0" />
+            <element signature="e#12797#13197#0" />
+            <element signature="e#13218#13504#0" />
+            <element signature="e#13525#14372#0" />
+            <element signature="e#14388#14819#0" />
+            <element signature="e#14839#15063#0" />
+            <element signature="e#15083#16324#0" />
+            <element signature="e#17736#18822#0" />
+            <element signature="e#2511#9329#0" />
+            <element signature="e#25700#28194#0" />
+            <element signature="e#28305#28939#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/static/lab1/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="394" column="24" selection-start-line="394" selection-start-column="24" selection-end-line="394" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lab1/static/lab1/welcome.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="117">
+          <caret line="1084" column="16" selection-start-line="1084" selection-start-column="16" selection-end-line="1084" selection-end-column="16" />
           <folding>
-            <element signature="e#2797#10512#0" />
-            <element signature="e#11201#11618#0" />
-            <element signature="e#11688#12957#0" />
-            <element signature="e#13000#14109#0" />
-            <element signature="e#14152#15261#0" />
-            <element signature="e#15305#16446#0" />
-            <element signature="e#16488#17805#0" />
-            <element signature="e#18947#19066#0" />
-            <element signature="e#20578#20754#0" />
-            <element signature="e#20799#25460#0" />
-            <element signature="e#21069#23839#0" />
-            <element signature="e#25530#29049#0" />
-            <element signature="e#29082#29899#0" />
-            <element signature="e#29938#31427#0" />
-            <element signature="e#31467#33265#0" />
-            <element signature="e#33320#34427#0" />
-            <element signature="e#34487#35071#0" />
-            <element signature="e#35131#36133#0" />
-            <element signature="e#36176#36309#0" />
+            <element signature="n#!!block;n#renderTokens#0;n#Code#0" />
+            <element signature="n#!!block;n#programOnset#0;n#Code#0" />
+            <element signature="n#!!block;n#parse#0;n#Code#0" />
+            <element signature="n#!!block;n#nextToken#0;n#!!block;n#parse#0;n#Code#0" />
+            <element signature="n#!!block;n#hitTableFor#0;n#Code#0" />
+            <element signature="n#!!block;n#hideToken#0;n#Code#0" />
+            <element signature="n#!!block;n#appendNode#0;n#Code#0" />
+            <element signature="n#!!block;n#pasteToken#0;n#Code#0" />
+            <element signature="n#!!block;n#setSelection#0;n#Code#0" />
+            <element signature="n#!!block;n#setSelectionByOne#0;n#Code#0" />
+            <element signature="n#!!block;n#changeSelectionWidthTo#0;n#Code#0" />
+            <element signature="n#!!block;n#hideSelection#0;n#Code#0" />
+            <element signature="n#!!block;n#setCursor#0;n#Code#0" />
+            <element signature="n#!!block;n#moveCursor#0;n#Code#0" />
+            <element signature="n#!!block;n#welcomeDepart#0" />
+            <element signature="e#39882#39933#0" />
+            <element signature="e#39986#40037#0" />
+            <element signature="n#!!block;n#handleFileSelect#0" />
+            <element signature="n#!!block;n#dropHandler#0" />
+            <element signature="n#!!block;n#readFile#0" />
           </folding>
         </state>
       </provider>

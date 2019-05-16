@@ -264,7 +264,7 @@ def operator():
             if nxtsymb[2] != ')':
                 return 'expected \')\''
             return ''
-        return 'unexpected "'+nxtsymb[2]+'"'
+        return 'unexpected "' + nxtsymb[2] + '"'
     elif nxtsymb[2] == 'if':
         scan()
         if not check(condition()):
@@ -282,8 +282,6 @@ def operator():
                 return 'operator expected'
         else:
             scan()
-            if nxtsymb[2] == 'else':
-                return 'extra \';\' before \'else\''
     elif nxtsymb[2] == 'goto':
         scan()
         if nxtsymb[0] != 'I':
@@ -602,6 +600,9 @@ def parse(request):
     code = request.POST.get('code')
     chain = to_token_analyze(code)
 
+    with open('./results/lab1.json') as lab1_file:
+        data = json.load(lab1_file)
+
     tokens_chain = chain
     mistakes = []
     nxtsymb = []
@@ -635,37 +636,34 @@ operations = ['+', '-', '*', '/', '^', '<', '>', '=', '<>', '<=', '>=']
 separators = [' ', ',', '..', ':', ';', '(', ')', '[', ']', '{', '}', '\'']
 
 def filter_program(text):
+    splitted_text = text.split('\'')
     formatted_text = []
-    lines = text.split('\n')
-    for index, line in enumerate(lines):
-        splitted_text = line.split('\'')
-        even_flag = False
-        for span in splitted_text:
-            if not even_flag:
-                formatted_span = re.sub(r'[\t\n]+', ' ', span)
-                formatted_span = re.sub(r' +', ' ', formatted_span)
-                formatted_span = re.sub(r'\{[.\n]*\}+', '', formatted_span)
-                formatted_text.append({
-                    'text': formatted_span.lower(),
-                    'type': 'code',
-                    'line': index + 1
-
-                })
-            else:
-                formatted_text.append({
-                    'text': span,
-                    'type': 'string',
-                    'line': index + 1
-                })
-
-            even_flag = not even_flag
+    even_flag = False
+    for span in splitted_text:
         if not even_flag:
-            # print(Fore.RED + 'Unexpected end of line. There is unclosed apostrophe!' + Style.RESET_ALL)
-            return None
+            formatted_span = re.sub(r'[\t\n]+', ' ', span)
+            formatted_span = re.sub(r' +', ' ', formatted_span)
+            formatted_span = re.sub(r'\{.*\}', '', formatted_span)
+            formatted_text.append({
+                'text': formatted_span.lower(),
+                'type': 'code'
+            })
+        else:
+            formatted_text.append({
+                'text': span,
+                'type': 'string'
+            })
+
+        even_flag = not even_flag
+    if not even_flag:
+        # print(Fore.RED + 'Unexpected end of file. There is unclosed apostrophe!' + Style.RESET_ALL)
+        return None
 
     #     formatted_text = formatted_text.replace('\\', '\\\\')
 
     return formatted_text
+
+
 class Analyzer:
     state = 'S'
     string = ''
@@ -870,6 +868,31 @@ class Analyzer:
             'token': str(self.state),
             'residue': self.string
         }
+
+
+def append_consumable(token, kind, number_of_procedure=0, level_of_procedure=0, number_in_procedure=0):
+    global constants
+    global identifiers
+
+    if kind in ['integer', 'real', 'string', 'integer_interval']:
+        constant = {
+            'type': kind,
+            'value': token
+        }
+        if not constant in constants:
+            constants.append(constant)
+    elif kind == 'identifier':
+        identifier = {
+            'type': kind,
+            'name': token,
+            'number_of_procedure': number_of_procedure,
+            'level_of_procedure': level_of_procedure,
+            'number_in_procedure': number_in_procedure
+        }
+        if not identifier in identifiers:
+            identifiers.append(identifier)
+
+
 def split_by_separator(line):
     global separators
 
@@ -954,32 +977,13 @@ def split_by_separator(line):
         'separator': separator,
         'remaining_line': line[first_separator_index + 1:]
     }
-def append_consumable(token, kind, number_of_procedure=0, level_of_procedure=0, number_in_procedure=0):
-    global constants
-    global identifiers
 
-    if kind in ['integer', 'real', 'string', 'integer_interval']:
-        constant = {
-            'type': kind,
-            'value': token
-        }
-        if not constant in constants:
-            constants.append(constant)
-    elif kind == 'identifier':
-        identifier = {
-            'type': kind,
-            'name': token,
-            'number_of_procedure': number_of_procedure,
-            'level_of_procedure': level_of_procedure,
-            'number_in_procedure': number_in_procedure
-        }
-        if not identifier in identifiers:
-            identifiers.append(identifier)
-def to_token_analyze(text):
+
+def to_token_analyze(code):
     global tokens_chain
 
-    program = filter_program(text)
-    print(program)
+    program = filter_program(code)
+    #     print(program)
 
     if not program:
         return None
@@ -1014,7 +1018,7 @@ def to_token_analyze(text):
                             'W',
                             service_words.index(token),
                             token,
-                            segment['line']
+                            'service-word'
                         ])
                         kind_suffix = 'W' + str(service_words.index(token))
 
@@ -1055,12 +1059,10 @@ def to_token_analyze(text):
                                     label_context_flag = False
 
                                 if token == 'function':
-                                    # print(Fore.BLUE + 'FUNCTION', Fore.BLACK + 'context ON', Style.RESET_ALL)
                                     function_context_flag = True
-
-                                if token == 'procedure':
-                                    # print(Fore.BLUE + 'PROCEDURE', Fore.BLACK + 'context ON', Style.RESET_ALL)
-                                    procedure_context_flag = True
+                                else:
+                                    #                                 print('FUNCTION FLAG FALSE')
+                                    function_context_flag = False
 
 
                     elif kind == 'operation':
@@ -1068,7 +1070,7 @@ def to_token_analyze(text):
                             'O',
                             operations.index(token),
                             token,
-                            segment['line']
+                            'operation'
                         ])
                         kind_suffix = 'O' + str(operations.index(token))
 
@@ -1094,7 +1096,7 @@ def to_token_analyze(text):
 
                                 #                             Var pool
                                 if kind == 'identifier' and (
-                                        var_context_flag or program_context_flag or label_context_flag or function_context_flag or procedure_context_flag):
+                                        var_context_flag or program_context_flag or label_context_flag):
                                     var_pool.append(token)
 
                                 #                             New identifier
@@ -1111,7 +1113,7 @@ def to_token_analyze(text):
                                         'C',
                                         index,
                                         constant['value'],
-                                        segment['line'],
+                                        'constant',
                                         kind
                                     ])
                                     kind_suffix = 'C' + str(index)
@@ -1125,7 +1127,7 @@ def to_token_analyze(text):
                                         'I',
                                         index,
                                         identifier['name'],
-                                        segment['line']
+                                        'identifier'
                                     ])
                                     kind_suffix = 'I' + str(index)
 
@@ -1135,7 +1137,7 @@ def to_token_analyze(text):
                                         'R',
                                         separators.index(token),
                                         token,
-                                        segment['line']
+                                        'separator'
                                     ])
                                     kind_suffix = 'R' + str(separators.index(token))
 
@@ -1145,12 +1147,11 @@ def to_token_analyze(text):
                                         'O',
                                         operations.index(token),
                                         token,
-                                        segment['line']
+                                        'operation'
                                     ])
                                     kind_suffix = 'O' + str(operations.index(token))
                                 # print(Fore.BLACK + '\"' + token + '\"', Fore.GREEN + kind,
-                                #       Fore.WHITE + 'by analyzer' + Style.RESET_ALL, kind_suffix,
-                                #       Back.WHITE + 'line #' + str(segment['line']) + Style.RESET_ALL)
+                                #       Fore.WHITE + 'by analyzer' + Style.RESET_ALL, kind_suffix)
 
                     else:
                         #                     Pre-recognized constants or handled service words
@@ -1163,13 +1164,11 @@ def to_token_analyze(text):
                                 'C',
                                 index,
                                 constant['value'],
-                                segment['line'],
+                                'constant',
                                 kind
                             ])
                             kind_suffix = 'C' + str(index)
-                        # print(Fore.BLACK + '\"' + token + '\"', Fore.GREEN + kind,
-                        #       Style.RESET_ALL + kind_suffix + ' ' + Back.WHITE + 'line #' + str(
-                        #           segment['line']) + Style.RESET_ALL)
+                        # print(Fore.BLACK + '\"' + token + '\"', Fore.GREEN + kind, Style.RESET_ALL + kind_suffix)
 
                 if not separator.isspace():
                     if separator == ';':
@@ -1196,43 +1195,13 @@ def to_token_analyze(text):
                             'R',
                             separators.index(separator),
                             separator,
-                            segment['line']
+                            'separator'
                         ])
                         # print(Fore.BLACK + '\"' + separator + '\"', Fore.GREEN + 'separator',
-                              # Style.RESET_ALL + 'R' + str(
-                              #     separators.index(separator)) + ' ' + Back.WHITE + 'line #' + str(
-                              #     segment['line']) + Style.RESET_ALL)
-                        # if separator == ';':
-                        #     print()
-
-                    if separator == '(' and function_context_flag:
-                        # print(Fore.BLUE + 'FUNCTION', Fore.BLACK + 'context OFF', Style.RESET_ALL)
-                        identifiers[:] = [d for d in identifiers if d.get('name') != var_pool[0]]
-                        identifiers.append({
-                            'type': 'function',
-                            'name': var_pool[0],
-                            'number_of_procedure': 0,
-                            'level_of_procedure': 0,
-                            'number_in_procedure': 0
-                        })
-                        var_pool = []
-                        function_context_flag = False
-
-                    if separator == '(' and procedure_context_flag:
-                        # print(Fore.BLUE + 'PROCEDURE', Fore.BLACK + 'context OFF', Style.RESET_ALL)
-                        try:
-                            identifiers[:] = [d for d in identifiers if d.get('name') != var_pool[0]]
-                            identifiers.append({
-                                'type': 'procedure',
-                                'name': var_pool[0],
-                                'number_of_procedure': 0,
-                                'level_of_procedure': 0,
-                                'number_in_procedure': 0
-                            })
-                        except:
+                              # Style.RESET_ALL + 'R' + str(separators.index(separator)))
+                        if separator == ';':
                             pass
-                        var_pool = []
-                        procedure_context_flag = False
+                            # print()
 
                 splitted_line = split_by_separator(remaining_line)
         else:
@@ -1245,12 +1214,11 @@ def to_token_analyze(text):
                 'C',
                 index,
                 constant['value'],
-                segment['line'],
+                'constant',
                 'string'
             ])
             kind_suffix = 'C' + str(index)
             # print(Fore.BLACK + '\"' + segment['text'] + '\"', Fore.RED + 'STRING',
-            #       Fore.WHITE + 'by formatter' + Style.RESET_ALL + ' ' + Back.WHITE + 'line #' + str(
-            #           segment['line']) + Style.RESET_ALL)
+                  # Fore.WHITE + 'by formatter' + Style.RESET_ALL)
 
     return tokens_chain

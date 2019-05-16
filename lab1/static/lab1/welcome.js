@@ -1,4 +1,4 @@
-let $wrapper = document.getElementById('wrapper'),
+const $wrapper = document.getElementById('wrapper'),
     $welcome = document.getElementById('welcome'),
     $welcomeWrapper = document.getElementById('welcome-wrapper'),
     $uploadForm = document.getElementById('upload-form'),
@@ -7,12 +7,16 @@ let $wrapper = document.getElementById('wrapper'),
     $programWrapper = document.getElementById('program-wrapper'),
     $tokensWrapper = document.getElementById('tokens-wrapper'),
     $tablesWrapper = document.getElementById('tables-wrapper'),
-    $chainWrapper = document.getElementById('chain-wrapper');
+    $chainWrapper = document.getElementById('chain-wrapper'),
+    $skipBtn = document.getElementById('skip-btn'),
+    $mistakePopup = document.getElementById('mistake-popup');
 
 class Code {
 
     // action methods
-    constructor(chain, tables) {
+    constructor(chain, tables, mistakes) {
+        this.mistakes = mistakes
+        this.skip = false;
         this.chain = chain;
         this.tables = tables;
         this.cursorPos = {
@@ -79,6 +83,24 @@ class Code {
         this.currentTokenNumber = 0;
     }
 
+    getTokenType(sign) {
+        switch (sign[0]) {
+            case 'W':
+                return 'service-word';
+            case 'O':
+                return 'operation';
+            case 'C':
+                return sign[4];
+            case 'I':
+                return 'identifier';
+            case 'R':
+                return 'separator';
+
+            default:
+                return '';
+        }
+    }
+
     renderTokens() {
         if (this.chain && this.tables) {
             $tokensWrapper.innerHTML = '';
@@ -96,14 +118,16 @@ class Code {
 
             for (let i = 0; i < this.chain.length; i++) {
                 let $newToken = document.createElement('div');
-                $newToken.classList.add('token', this.chain[i][3]);
+                const tokensType = this.getTokenType(this.chain[i]);
+                console.log(this.chain[i], tokensType);
+                $newToken.classList.add('token', tokensType);
                 $newToken.innerText = this.chain[i][2];
 
                 if (this.chain[i].length > 4) {
                     if (this.chain[i][4] === 'string') {
                         $newToken.innerText = '\'' + this.chain[i][2] + '\'';
                     }
-                    $newToken.classList.add(this.chain[i][4]);
+                    $newToken.classList.add(tokensType);
                 }
 
                 if (this.chain[i][2] === ':=') {
@@ -130,7 +154,7 @@ class Code {
                         && (this.chain[i][2] !== 'array') && (this.chain[i][2] !== 'of')
                         && (this.chain[i][2] !== 'integer') && (this.chain[i][2] !== 'real')
                         && (this.chain[i][2] !== 'string'))
-                    || ((constFlag) && (this.chain[i][3] === 'service-word'))) {
+                    || ((constFlag) && (tokensType === 'service-word'))) {
                     indent--;
                     varFlag = false;
                     constFlag = false;
@@ -283,7 +307,7 @@ class Code {
     //    Render chain
         for (let i = 0; i < this.chain.length; i++) {
             const $newUnit = document.createElement('div');
-            const newClass = this.chain[i][3] === 'constant' ? this.chain[i][4] : this.chain[i][3];
+            const newClass = this.getTokenType(this.chain[i]);
             $newUnit.classList.add('token', newClass);
             $newUnit.setAttribute('id', 'unit-number-' + i);
             $newUnit.innerText = this.chain[i][0] + this.chain[i][1].toString();
@@ -479,6 +503,20 @@ class Code {
         });
     }
 
+    showMistake() {
+        $mistakePopup.classList.remove('hide');
+        $skipBtn.classList.add('hide');
+        this.tokens.forEach((line, lineIndex) => {
+            line.forEach((element) => {
+                // element.style.transform = 'none';
+                element.style.transform = `translateY(${-this.cornerstone.height * (this.mistakes[0].line + 3)}px)`;
+                if (lineIndex + 1 === this.mistakes[0].line && !element.classList.contains('indent')) {
+                    element.style.background = '#ffb8b8';
+                }
+            });
+        });
+    }
+
     parse(lineIndex, tokenIndex, callback) {
         const that = this;
 
@@ -493,13 +531,16 @@ class Code {
                     that.hideSelection();
                     that.setCursor(0, 0);
                     that.hideToken(token, function () {
-                        let delay = {min: 200, max: 400};
+                        let delay = {min: 200, max: 400}; // delay before line up
 
                         if (nextToken()) {
                             if (nextToken().className.includes('break-line')) {
                                 delay = {min: 0, max: 0}
                             }
-                        } // delay before line up
+                        } else {
+                            that.out();
+                            return;
+                        }
 
                         that.moveCursor(0, -2, function() {
                             that.pasteToken(token, 0, -2, function() {
@@ -539,6 +580,9 @@ class Code {
                         if (nextToken().className.includes('break-line')) {
                             delay = {min: 0, max: 0}
                         }
+                    } else {
+                        that.out();
+                        return;
                     }
 
                     parseNext(delay);
@@ -551,27 +595,31 @@ class Code {
             $tokensWrapper.style.transform = 'translateY(' + that.topOffset + 'px)';
 
             parseNext({min: 90, max: 120});
+            // parseNext({min: 50, max: 50});
         }
 
         function parseNext(delay) {
-            setTimeout(function() {
-                console.log(tokenIndex + 1, '>=', that.tokens[lineIndex].length, '&&', lineIndex + 1, '>=', that.tokens.length, '&& functuion ===', typeof callback);
-                if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
-                    if (lineIndex + 1 >= that.tokens.length) {
-                        if (typeof callback === 'function') {
-                            console.log('FINAL!');
-                            callback();
+            if (!that.skip) {
+                setTimeout(function () {
+                    console.log(tokenIndex + 1, '>=', that.tokens[lineIndex].length, '&&', lineIndex + 1, '>=', that.tokens.length, '&& functuion ===', typeof callback);
+                    if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
+                        if (lineIndex + 1 >= that.tokens.length) {
+                            if (typeof callback === 'function') {
+                                console.log('FINAL!');
+                                callback();
+                            }
+                        } else {
+                            that.parse(lineIndex + 1, 0, callback);
                         }
                     } else {
-                        that.parse(lineIndex + 1, 0, callback);
+                        that.parse(lineIndex, tokenIndex + 1, callback);
                     }
-                } else {
-                    that.parse(lineIndex, tokenIndex + 1, callback);
-                }
-            }, getRndInteger(delay.min, delay.max));
+                }, getRndInteger(delay.min, delay.max));
+            }
         }
         function nextToken() {
-            if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
+            if (!that.skip) {
+                if (tokenIndex + 1 >= that.tokens[lineIndex].length) {
                     if (lineIndex + 1 >= that.tokens.length) {
                         if (typeof callback === 'function') {
                             return null; // end of program
@@ -582,7 +630,23 @@ class Code {
                 } else {
                     return that.tokens[lineIndex][tokenIndex + 1];
                 }
+            }
+            return false;
         }
+    }
+
+    out() {
+        console.log('hi!');
+        $programWrapper.style.transform = 'translateY(300px)';
+
+        this.chain.forEach((elem, index) => {
+            setTimeout(() => {
+                const $token = document.getElementById(`unit-number-${index}`);
+                $token.style.opacity = '1';
+                $token.style.display = 'inline-block';
+                $token.style.transform = 'scale(0.7)';
+            }, 50 * index);
+        });
     }
 
     // practical methods
@@ -661,8 +725,8 @@ class Code {
                 if (typeof callback === 'function') {
                     callback();
                 }
-            }, 2 * duration);
-        }, 2 * duration);
+            }, duration + 10);
+        }, duration + 10);
     }
 
     hideToken(token, callback) {
@@ -919,26 +983,32 @@ class Code {
     }
 }
 
-// let code;
+let code;
 
-$welcomeWrapper.classList.remove('hide');
-// if (sessionStorage.getItem('chain') != null) {
-//
-//     code = new Code(
-//         JSON.parse(sessionStorage.getItem('chain')),
-//         JSON.parse(sessionStorage.getItem('tables'))
-//     );
-//     code.renderTokens();
-//     code.skipProgramOnset();
-//     code.setCursor(0, 0);
-//
-//     setTimeout(function() {
-//         code.parse();
-//     }, 1000);
-//
-// } else {
-//     $welcomeWrapper.classList.remove('hide');
-// }
+$welcomeWrapper.classList.add('hide');
+if (sessionStorage.getItem('chain') != null) {
+    const chain = JSON.parse(sessionStorage.getItem('chain'));
+    console.log(chain);
+    code = new Code(
+        chain.chain,
+        chain.tables,
+        chain.mistakes
+    );
+    code.renderTokens();
+
+    if (chain.mistakes.length) {
+        code.showMistake();
+    } else {
+        code.skipProgramOnset();
+        code.setCursor(0, 0);
+
+        setTimeout(function() {
+            code.parse();
+        }, 1000);
+    }
+} else {
+    $welcomeWrapper.classList.remove('hide');
+}
 
 function welcomeDepart() {
     let words = document.getElementsByClassName('welcome-word');
@@ -1010,9 +1080,9 @@ function readFile(file) {
     }
 }
 
-function parse(code) {
+function parse(text) {
     let data = {
-      code: code
+      code: text
     };
 
     let boundary = String(Math.random()).slice(2),
@@ -1038,20 +1108,35 @@ function parse(code) {
         if (this.readyState !== 4) return;
 
         let chain = JSON.parse(this.responseText);
+        console.log(chain);
 
         // sessionStorage.removeItem('chain');
         // sessionStorage.removeItem('tables');
 
-        sessionStorage.setItem('chain', JSON.stringify(chain.chain));
-        sessionStorage.setItem('tables', JSON.stringify(chain.tables));
+        sessionStorage.setItem('chain', JSON.stringify(chain));
 
-        code = new Code(chain.chain, chain.tables);
+        code = new Code(
+            chain.chain,
+            chain.tables,
+            chain.mistakes
+        );
         code.renderTokens();
-        code.programOnset(code.tokens.length-1);
+
+        if (chain.mistakes.length) {
+            code.showMistake();
+        } else {
+            code.programOnset(code.tokens.length-1);
+        }
     };
 
     xhr.send(body)
 }
+$skipBtn.addEventListener('click', () => {
+    code.skip = true;
+});
+// let chain = '{"chain": [["W", 0, "program", 1], ["I", 0, "fdadf", 1], ["R", 4, ";", 1], ["W", 1, "var", 2], ["I", 1, "a", 3], ["R", 3, ":", 3], ["W", 3, "integer", 3], ["R", 4, ";", 3], ["I", 2, "b", 4], ["R", 3, ":", 4], ["W", 4, "real", 4], ["R", 4, ";", 4], ["I", 3, "s", 5], ["R", 3, ":", 5], ["W", 5, "string", 5], ["R", 4, ";", 5], ["I", 4, "arr", 6], ["R", 3, ":", 6], ["W", 7, "array", 6], ["R", 7, "[", 6], ["C", 0, "1", 6], ["R", 2, "..", 6], ["C", 1, "10", 6], ["R", 8, "]", 6], ["W", 8, "of", 6], ["W", 3, "integer", 6], ["R", 4, ";", 6], ["W", 9, "procedure", 8], ["I", 5, "procedure_one", 8], ["R", 5, "(", 8], ["I", 6, "parametr1", 8], ["R", 3, ":", 8], ["W", 3, "integer", 8], ["R", 6, ")", 8], ["R", 4, ";", 8], ["W", 1, "var", 9], ["I", 7, "i", 9], ["R", 3, ":", 9], ["W", 3, "integer", 9], ["R", 4, ";", 9], ["W", 11, "begin", 10], ["I", 7, "i", 11], ["W", 12, ":=", 11], ["C", 2, "0", 11], ["R", 4, ";", 11], ["W", 20, "while", 12], ["I", 7, "i", 12], ["O", 5, "<", 12], ["C", 1, "10", 12], ["I", 8, "do", 12], ["I", 7, "i", 13], ["W", 12, ":=", 13], ["I", 7, "i", 13], ["O", 0, "+", 13], ["C", 0, "1", 13], ["R", 4, ";", 13], ["W", 17, "end", 14], ["R", 4, ";", 14], ["W", 10, "function", 16], ["I", 9, "fun", 16], ["R", 5, "(", 16], ["I", 10, "k1", 16], ["R", 3, ":", 16], ["W", 3, "integer", 16], ["R", 4, ";", 16], ["I", 11, "k2", 16], ["R", 3, ":", 16], ["W", 4, "real", 16], ["R", 4, ";", 16], ["I", 12, "parametr2", 16], ["R", 3, ":", 16], ["W", 5, "string", 16], ["R", 6, ")", 16], ["R", 3, ":", 16], ["W", 3, "integer", 16], ["R", 4, ";", 16], ["W", 1, "var", 17], ["I", 13, "str", 17], ["R", 3, ":", 17], ["W", 5, "string", 17], ["R", 4, ";", 17], ["W", 11, "begin", 18], ["W", 14, "if", 19], ["I", 10, "k1", 19], ["O", 6, ">", 19], ["I", 11, "k2", 19], ["W", 15, "then", 19], ["I", 13, "str", 20], ["W", 12, ":=", 20], ["C", 3, "k1 more then k2", 20], ["W", 16, "else", 21], ["I", 13, "str", 22], ["W", 12, ":=", 22], ["C", 4, "k1 less or eq k2", 22], ["R", 4, ";", 22], ["W", 19, "return", 23], ["I", 13, "str", 23], ["R", 4, ";", 23], ["W", 17, "end", 24], ["R", 4, ";", 24], ["W", 11, "begin", 26], ["I", 1, "a", 27], ["W", 12, ":=", 27], ["C", 1, "10", 27], ["R", 4, ";", 27], ["I", 2, "b", 28], ["W", 12, ":=", 28], ["C", 5, "5.25e5", 28], ["R", 4, ";", 28], ["I", 3, "s", 29], ["W", 12, ":=", 29], ["I", 9, "fun", 29], ["R", 5, "(", 29], ["I", 1, "a", 29], ["R", 1, ",", 29], ["I", 2, "b", 29], ["R", 1, ",", 29], ["I", 3, "s", 29], ["R", 6, ")", 29], ["R", 4, ";", 29], ["I", 5, "procedure_one", 30], ["R", 5, "(", 30], ["C", 1, "10", 30], ["R", 6, ")", 30], ["R", 4, ";", 30], ["W", 20, "while", 31], ["I", 1, "a", 31], ["O", 5, "<", 31], ["C", 6, "150", 31], ["I", 8, "do", 31], ["I", 1, "a", 32], ["W", 12, ":=", 32], ["I", 1, "a", 32], ["O", 2, "*", 32], ["C", 1, "10", 32], ["R", 4, ";", 32], ["I", 4, "arr", 33], ["R", 7, "[", 33], ["C", 0, "1", 33], ["R", 8, "]", 33], ["W", 12, ":=", 33], ["C", 1, "10", 33], ["R", 4, ";", 33], ["I", 4, "arr", 34], ["R", 7, "[", 34], ["C", 7, "2", 34], ["R", 8, "]", 34], ["W", 12, ":=", 34], ["C", 8, "20", 34], ["O", 2, "*", 34], ["I", 1, "a", 34], ["R", 4, ";", 34], ["W", 18, "end.", 36]], "tables": {"service_words": ["program", "var", "const", "integer", "real", "string", "label", "array", "of", "procedure", "function", "begin", ":=", "goto", "if", "then", "else", "end", "end.", "return", "while"], "operations": ["+", "-", "*", "/", "^", "<", ">", "=", "<>", "<=", ">="], "separators": [" ", ",", "..", ":", ";", "(", ")", "[", "]", "{", "}", "\'"], "constants": [{"type": "integer", "value": "1"}, {"type": "integer", "value": "10"}, {"type": "integer", "value": "0"}, {"type": "string", "value": "k1 more then k2"}, {"type": "string", "value": "k1 less or eq k2"}, {"type": "real", "value": "5.25e5"}, {"type": "integer", "value": "150"}, {"type": "integer", "value": "2"}, {"type": "integer", "value": "20"}], "identifiers": [{"type": "program", "name": "fdadf", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "integer", "name": "a", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "real", "name": "b", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "string", "name": "s", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "integer_array", "name": "arr", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "procedure", "name": "procedure_one", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "parametr1", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "integer", "name": "i", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "do", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "function", "name": "fun", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "k1", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "k2", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "identifier", "name": "parametr2", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}, {"type": "string", "name": "str", "number_of_procedure": 0, "level_of_procedure": 0, "number_in_procedure": 0}]}}';
+// sessionStorage.setItem('chain', JSON.stringify(chain.chain));
+// sessionStorage.setItem('tables', JSON.stringify(chain.tables));
 
 $wrapper.addEventListener('dragover', function() {
     $wrapper.classList.add('is-drag-over');

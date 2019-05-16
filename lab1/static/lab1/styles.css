@@ -146,6 +146,7 @@ body.is-drag-over {
 }
 
 .program-wrapper {
+    transition: all 1100ms ease-in;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -192,7 +193,7 @@ body.is-drag-over {
 
         overflow: hidden;
 
-        transition-duration: 1s;
+        transition-duration: 0s;
         transition-timing-function: ease-in-out;
         transition-property: all;
     }
@@ -359,3 +360,37 @@ body.is-drag-over {
         /*font-size: 21pt;*/
         opacity: 0;
     }
+
+.skip {
+    transition: all 100ms ease-in-out;
+    position: absolute;
+
+    bottom: 15px;
+    right: 15px;
+
+    padding: 10px 30px;
+
+    border: black solid 2px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    font-size: 20pt;
+
+    background: white;
+}
+
+.skip:hover {
+    transform: scale(1.1);
+}
+
+.mistake-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 40px 0 20px 0;
+    font-size: 24pt;
+
+    background: #ffb8b8;
+}
